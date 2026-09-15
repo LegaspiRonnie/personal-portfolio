@@ -1,0 +1,398 @@
+:root {
+  --page-bg: #f4f4f3;
+  --surface: #ffffff;
+  --surface-2: #f7f7f6;
+  --text: #171819;
+  --muted: #6b6d70;
+  --line: #e5e3df;
+  --soft: #8e9196;
+  --accent: #f4b942;
+  --accent-strong: #ed9e2c;
+  --button: #181a1c;
+  --button-text: #ffffff;
+  --shadow: 0 12px 30px rgba(19, 20, 20, 0.05);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html, body {
+  margin: 0;
+  min-height: 100%;
+  font-family: 'Inter', sans-serif;
+  background: var(--page-bg);
+  color: var(--text);
+}
+
+body {
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  padding: 18px 14px 30px;
+}
+
+.dashboard-shell {
+  width: min(100%, 960px);
+}
+
+.topbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 4px 0 10px;
+}
+
+.topbar-copy {
+  min-width: 0;
+}
+
+.eyebrow {
+  margin: 0 0 4px;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.13em;
+  color: var(--muted);
+}
+
+h1 {
+  margin: 0;
+  font-size: clamp(1.7rem, 3vw, 2.3rem);
+  line-height: 1.1;
+  letter-spacing: -0.06em;
+}
+
+.search-form {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  width: 100%;
+  background: var(--surface-2);
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  padding: 5px 6px 5px 10px;
+  margin-bottom: 10px;
+}
+
+.search-form input {
+  flex: 1;
+  border: 0;
+  background: transparent;
+  outline: none;
+  color: var(--text);
+  font: inherit;
+  font-size: 0.8rem;
+}
+
+.search-form input::placeholder {
+  color: var(--muted);
+}
+
+.search-form button {
+  border: 0;
+  border-radius: 8px;
+  background: var(--button);
+  color: var(--button-text);
+  font: inherit;
+  font-weight: 700;
+  padding: 7px 10px;
+  font-size: 0.75rem;
+  cursor: pointer;
+}
+
+.api-list {
+  background: transparent;
+}
+
+.api-card {
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  box-shadow: var(--shadow);
+  padding: 12px 14px 14px;
+  margin-bottom: 10px;
+  min-height: 190px;
+}
+
+.api-card-footer {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 14px;
+  padding-top: 10px;
+  border-top: 1px solid var(--line);
+}
+
+.api-footer-link {
+  background: transparent;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  color: var(--text);
+  font: inherit;
+  font-size: 0.7rem;
+  padding: 7px 10px;
+  cursor: pointer;
+}
+
+.api-card-modal {
+  position: fixed;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 18px;
+  background: rgba(17, 18, 20, 0.35);
+  z-index: 20;
+}
+
+.api-card-modal.hidden {
+  display: none;
+}
+
+.modal-card {
+  width: min(100%, 440px);
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  box-shadow: var(--shadow);
+  padding: 18px 18px 16px;
+}
+
+.modal-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 10px;
+}
+
+.modal-header h3 {
+  margin: 0;
+  font-size: 1rem;
+}
+
+.modal-close {
+  border: 0;
+  background: transparent;
+  color: var(--muted);
+  font-size: 1.3rem;
+  cursor: pointer;
+}
+
+.modal-card p,
+.modal-list {
+  margin: 0;
+  color: var(--text);
+  font-size: 0.9rem;
+  line-height: 1.6;
+}
+
+.modal-card p + p {
+  margin-top: 10px;
+}
+
+.modal-list {
+  list-style: none;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.snapshot-box {
+  margin-top: 12px;
+  border: 1px dashed var(--line);
+  border-radius: 12px;
+  min-height: 90px;
+  display: grid;
+  place-items: center;
+  color: var(--muted);
+  font-size: 0.8rem;
+  background: var(--surface-2);
+}
+
+.api-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 12px;
+}
+
+.api-name-wrap {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.api-icon {
+  width: 26px;
+  height: 26px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 8px;
+  background: var(--surface-2);
+  color: var(--text);
+  font-size: 0.8rem;
+}
+
+.api-name {
+  font-size: 1rem;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+}
+
+.api-status {
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  color: var(--accent-strong);
+  text-transform: uppercase;
+}
+
+.api-status.muted {
+  color: var(--muted);
+}
+
+.weather-content {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.weather-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.weather-icon {
+  font-size: clamp(1.8rem, 5vw, 2.4rem);
+  color: var(--accent-strong);
+  line-height: 1;
+}
+
+.weather-temp-block {
+  display: flex;
+  align-items: flex-start;
+  gap: 4px;
+  margin-left: auto;
+}
+
+.temperature {
+  font-size: clamp(2rem, 5vw, 2.8rem);
+  line-height: 0.9;
+  letter-spacing: -0.08em;
+  font-weight: 700;
+}
+
+.temperature.small {
+  font-size: 1.7rem;
+}
+
+.unit {
+  padding-top: 8px;
+  font-size: 1.05rem;
+  color: var(--muted);
+}
+
+.weather-location-block {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  margin-top: 1px;
+}
+
+.location-main {
+  font-size: 1rem;
+  font-weight: 700;
+  letter-spacing: -0.03em;
+}
+
+.location-sub,
+.time-sub {
+  font-size: 0.76rem;
+  color: var(--muted);
+}
+
+.weather-meta {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  color: var(--text);
+  font-size: 0.82rem;
+}
+
+.weather-meta p {
+  margin: 0;
+}
+
+.metric-tabs {
+  display: flex;
+  gap: 12px;
+  padding-top: 8px;
+  border-top: 1px solid var(--line);
+  color: var(--muted);
+  font-size: 0.72rem;
+}
+
+.metric-tabs span {
+  position: relative;
+  padding-bottom: 4px;
+}
+
+.metric-tabs .active {
+  color: var(--text);
+}
+
+.metric-tabs .active::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -5px;
+  height: 2px;
+  background: var(--accent);
+}
+
+.placeholder-copy {
+  color: var(--muted);
+  font-size: 0.96rem;
+  padding-top: 4px;
+}
+
+.loading-state .temperature,
+.loading-state .unit {
+  opacity: 0.6;
+}
+
+.error-state .temperature {
+  font-size: 1.8rem;
+}
+
+@media (max-width: 620px) {
+  .topbar {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .search-form {
+    width: 100%;
+  }
+
+  .api-card {
+    min-height: 200px;
+  }
+
+  .metric-tabs {
+    gap: 12px;
+    flex-wrap: wrap;
+  }
+
+  .weather-header {
+    align-items: flex-start;
+  }
+}

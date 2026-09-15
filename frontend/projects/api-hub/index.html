@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>API Hub</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <!-- Load API Hub styles from this migrated project folder. -->
+    <link rel="stylesheet" href="css/styles.css" />
+</head>
+<body>
+    <div class="dashboard-shell">
+        <header class="topbar">
+            <div class="topbar-copy">
+                <p class="eyebrow">API HUB</p>
+                <h1>Services</h1>
+            </div>
+        </header>
+
+        <main class="api-list">
+            <article class="api-card weather-card">
+                <div class="api-header">
+                    <div class="api-name-wrap">
+                        <span class="api-icon"><i class="fa-solid fa-cloud-sun-rain"></i></span>
+                        <span class="api-name">Weather API</span>
+                    </div>
+                    <span class="api-status">Live</span>
+                </div>
+
+                <form id="weatherForm" class="search-form weather-search">
+                    <input type="text" id="cityInput" name="cityInput" value="Manila" autocomplete="off" />
+                    <button type="submit" id="searchBtn">Search</button>
+                </form>
+
+                <div id="weatherResult" class="weather-content empty-state">
+                    <div class="weather-header">
+                        <div class="weather-icon"><i class="fa-solid fa-cloud-bolt"></i></div>
+                        <div class="weather-temp-block">
+                            <div class="temperature">--</div>
+                            <div class="unit">°C</div>
+                        </div>
+                    </div>
+
+                    <div class="weather-location-block">
+                        <div class="location-main">Manila</div>
+                        <div class="location-sub">Philippines</div>
+                        <div class="time-sub">Loading time...</div>
+                    </div>
+
+                    <div class="weather-meta">
+                        <p>Precipitation: --</p>
+                        <p>Humidity: --</p>
+                        <p>Wind: --</p>
+                    </div>
+
+                    <div class="metric-tabs">
+                        <span class="active">Temperature</span>
+                        <span>Precipitation</span>
+                        <span>Wind</span>
+                    </div>
+                </div>
+
+                <div class="api-card-footer">
+                    <button class="api-footer-link" data-modal="weather-about">About</button>
+                    <button class="api-footer-link" data-modal="weather-api-urls">API URLs</button>
+                    <button class="api-footer-link" data-modal="weather-snapshot">Snapshot</button>
+                </div>
+
+                <div class="api-card-modal hidden" id="weather-about">
+                    <div class="modal-card">
+                        <div class="modal-header">
+                            <h3>Weather API</h3>
+                            <button class="modal-close" aria-label="Close">×</button>
+                        </div>
+                        <p>This weather endpoint converts a city name into coordinates, fetches forecast data, and returns current weather summary fields such as temperature, humidity, wind, and precipitation.</p>
+                    </div>
+                </div>
+
+                <div class="api-card-modal hidden" id="weather-api-urls">
+                    <div class="modal-card">
+                        <div class="modal-header">
+                            <h3>Weather API URLs</h3>
+                            <button class="modal-close" aria-label="Close">×</button>
+                        </div>
+                        <ul class="modal-list">
+                            <!-- Show the migrated API Hub endpoint in the URL reference modal. -->
+                            <li><strong>Endpoint:</strong> /personal-portfolio/backend/projects/api-hub/api/weather.php?city=Manila</li>
+                            <li><strong>Geocoding:</strong> https://geocoding-api.open-meteo.com/v1/search</li>
+                            <li><strong>Forecast:</strong> https://api.open-meteo.com/v1/forecast</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="api-card-modal hidden" id="weather-snapshot">
+                    <div class="modal-card">
+                        <div class="modal-header">
+                            <h3>Weather Snapshot</h3>
+                            <button class="modal-close" aria-label="Close">×</button>
+                        </div>
+                        <p>Code snapshot for the weather service will appear here once you want to capture a sample output or screenshot from this API flow.</p>
+                        <div class="snapshot-box">Weather code snapshot</div>
+                    </div>
+                </div>
+            </article>
+
+            <article class="api-card placeholder-card">
+                <div class="api-header">
+                    <div class="api-name-wrap">
+                        <span class="api-icon"><i class="fa-solid fa-credit-card"></i></span>
+                        <span class="api-name">Payments API</span>
+                    </div>
+                    <span class="api-status muted">Soon</span>
+                </div>
+                <div class="placeholder-copy">Coming soon.</div>
+
+                <div class="api-card-footer">
+                    <button class="api-footer-link" data-modal="payments-about">About</button>
+                    <button class="api-footer-link" data-modal="payments-api-urls">API URLs</button>
+                    <button class="api-footer-link" data-modal="payments-snapshot">Snapshot</button>
+                </div>
+
+                <div class="api-card-modal hidden" id="payments-about">
+                    <div class="modal-card">
+                        <div class="modal-header">
+                            <h3>Payments API</h3>
+                            <button class="modal-close" aria-label="Close">×</button>
+                        </div>
+                        <p>This service will handle incoming payment requests, invoices, and transaction verification for future product flows.</p>
+                    </div>
+                </div>
+
+                <div class="api-card-modal hidden" id="payments-api-urls">
+                    <div class="modal-card">
+                        <div class="modal-header">
+                            <h3>Payments URLs</h3>
+                            <button class="modal-close" aria-label="Close">×</button>
+                        </div>
+                        <p>Payment endpoints will be added here once the service is implemented.</p>
+                    </div>
+                </div>
+
+                <div class="api-card-modal hidden" id="payments-snapshot">
+                    <div class="modal-card">
+                        <div class="modal-header">
+                            <h3>Payments Snapshot</h3>
+                            <button class="modal-close" aria-label="Close">×</button>
+                        </div>
+                        <div class="snapshot-box">Payment code preview</div>
+                    </div>
+                </div>
+            </article>
+
+            <article class="api-card placeholder-card">
+                <div class="api-header">
+                    <div class="api-name-wrap">
+                        <span class="api-icon"><i class="fa-solid fa-location-dot"></i></span>
+                        <span class="api-name">Maps API</span>
+                    </div>
+                    <span class="api-status muted">Soon</span>
+                </div>
+                <div class="placeholder-copy">Coming soon.</div>
+
+                <div class="api-card-footer">
+                    <button class="api-footer-link" data-modal="maps-about">About</button>
+                    <button class="api-footer-link" data-modal="maps-api-urls">API URLs</button>
+                    <button class="api-footer-link" data-modal="maps-snapshot">Snapshot</button>
+                </div>
+
+                <div class="api-card-modal hidden" id="maps-about">
+                    <div class="modal-card">
+                        <div class="modal-header">
+                            <h3>Maps API</h3>
+                            <button class="modal-close" aria-label="Close">×</button>
+                        </div>
+                        <p>This API will support map rendering, location lookup, and route-based features for future app modules.</p>
+                    </div>
+                </div>
+
+                <div class="api-card-modal hidden" id="maps-api-urls">
+                    <div class="modal-card">
+                        <div class="modal-header">
+                            <h3>Maps URLs</h3>
+                            <button class="modal-close" aria-label="Close">×</button>
+                        </div>
+                        <p>Map service endpoints will be listed here once this module is connected.</p>
+                    </div>
+                </div>
+
+                <div class="api-card-modal hidden" id="maps-snapshot">
+                    <div class="modal-card">
+                        <div class="modal-header">
+                            <h3>Maps Snapshot</h3>
+                            <button class="modal-close" aria-label="Close">×</button>
+                        </div>
+                        <div class="snapshot-box">Map code preview</div>
+                    </div>
+                </div>
+            </article>
+        </main>
+    </div>
+
+    <!-- Load the API Hub behavior from this migrated project folder. -->
+    <script src="js/app.js"></script>
+</body>
+</html>
