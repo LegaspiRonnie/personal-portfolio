@@ -154,6 +154,29 @@
             line-height: 1.5;
         }
 
+        .note-card .note-description {
+            display: -webkit-box;
+            -webkit-box-orient: vertical;
+            -webkit-line-clamp: 4;
+            overflow: hidden;
+        }
+
+        .note-card a {
+            overflow-wrap: anywhere;
+        }
+
+        .note-link {
+            margin: 0;
+            color: var(--muted);
+            line-height: 1.5;
+            overflow-wrap: anywhere;
+        }
+
+        .note-link a {
+            color: var(--primary-dark);
+            text-decoration: underline;
+        }
+
         .note-meta {
             font-size: 0.78rem;
             color: var(--muted);
@@ -509,7 +532,7 @@
 
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="config.php"></script>
-    <script type="module" src="main.js"></script>
+    <script type="module" src="main.js?v=2"></script>
 </body>
 
 </html>

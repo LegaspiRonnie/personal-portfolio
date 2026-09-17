@@ -261,6 +261,9 @@ export async function index(searchTerm = '', page = 1, categoryId = '') {
                 const safeDescription = formatDescriptionForDisplay(note.description ?? 'No description');
                 const safeCategory = escapeHtml(note.category_name || (note.category_id ? `Category ${note.category_id}` : 'Uncategorized'));
                 const safeCreatedAt = escapeHtml(note.created_at ?? '');
+                const link = String(note.link ?? '').trim();
+                const safeLink = escapeHtml(link);
+                const linkMarkup = link ? `<div class="note-link"><strong>Link:</strong> <a href="${safeLink}" target="_blank" rel="noopener noreferrer">${safeTitle}</a></div>` : '';
                 const pinned = Number(note.pinned ?? 0) === 1;
                 const pinLabel = pinned ? 'Unpin' : 'Pin';
 
@@ -271,7 +274,8 @@ export async function index(searchTerm = '', page = 1, categoryId = '') {
                             ${pinned ? '<span class="pin-badge">Pinned</span>' : ''}
                         </div>
                         <h3>${safeTitle}</h3>
-                        <p>${safeDescription}</p>
+                        <p class="note-description">${safeDescription}</p>
+                        ${linkMarkup}
                         <div class="note-meta">${safeCreatedAt}</div>
                         <div class="card-actions">
                             <button type="button" data-action="view" data-id="${note.id}">View</button>
@@ -345,6 +349,10 @@ export async function viewNote(id) {
 
         const result = normalizeResult(await readJsonResponse(response, 'Failed to load note details.'));
         const note = result.data || result;
+        const link = String(note.link ?? '').trim();
+        const safeLink = escapeHtml(link);
+        const safeTitle = escapeHtml(note.title ?? 'Untitled');
+        const linkMarkup = link ? `<p class="paper-link"><strong>Link:</strong> <a href="${safeLink}" target="_blank" rel="noopener noreferrer">${safeTitle}</a></p>` : '';
 
         noteDetailsModal.innerHTML = `
             <div class="modal-content paper-note">
@@ -356,6 +364,7 @@ export async function viewNote(id) {
                 <div class="paper-body">
                     <h2 class="paper-title">${escapeHtml(note.title ?? 'Untitled')}</h2>
                     <p class="paper-description">${formatDescriptionForDisplay(note.description ?? 'No description')}</p>
+                    ${linkMarkup}
                 </div>
             </div>
         `;
@@ -517,6 +526,10 @@ export async function addNote() {
                         <input type="text" id="title" name="title" required placeholder="Enter a note title">
                     </div>
                     <div>
+                        <label for="link">Link</label>
+                        <input type="url" id="link" name="link" placeholder="https://example.com">
+                    </div>
+                    <div>
                         <label for="description">Description</label>
                         <div class="description-editor-wrap">
                             <div class="toolbar">
@@ -622,6 +635,7 @@ export async function addNote() {
             const payload = {
                 category_id: formData.get('category_id') || null,
                 title: (formData.get('title') || '').toString().trim(),
+                link: (formData.get('link') || '').toString().trim(),
                 description: descriptionEditor ? descriptionEditor.innerHTML.trim() : '',
             };
 
@@ -701,6 +715,10 @@ export async function editNote(id) {
                     <div>
                         <label for="title">Title</label>
                         <input type="text" id="title" name="title" value="${escapeHtml(note.title ?? '')}" required>
+                    </div>
+                    <div>
+                        <label for="link">Link</label>
+                        <input type="url" id="link" name="link" value="${escapeHtml(note.link ?? '')}" placeholder="https://example.com">
                     </div>
                     <div>
                         <label for="description">Description</label>
@@ -809,6 +827,7 @@ export async function editNote(id) {
                 id: Number(id),
                 category_id: formData.get('category_id') || null,
                 title: (formData.get('title') || '').toString().trim(),
+                link: (formData.get('link') || '').toString().trim(),
                 description: descriptionEditor ? descriptionEditor.innerHTML.trim() : '',
             };
 
