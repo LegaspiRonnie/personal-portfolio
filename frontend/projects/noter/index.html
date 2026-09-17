@@ -5,6 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Noter</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
     <style>
         :root {
             --primary: #2563eb;
@@ -175,6 +176,18 @@
         .note-link a {
             color: var(--primary-dark);
             text-decoration: underline;
+        }
+
+        .note-link i,
+        .note-meta i,
+        .paper-link i {
+            margin-right: 6px;
+        }
+
+        .icon-action {
+            min-width: 44px !important;
+            width: 44px;
+            padding: 8px !important;
         }
 
         .note-meta {
@@ -532,7 +545,7 @@
 
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="config.php"></script>
-    <script type="module" src="main.js?v=2"></script>
+    <script type="module" src="main.js?v=4"></script>
 </body>
 
 </html>

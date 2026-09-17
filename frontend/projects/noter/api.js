@@ -263,7 +263,7 @@ export async function index(searchTerm = '', page = 1, categoryId = '') {
                 const safeCreatedAt = escapeHtml(note.created_at ?? '');
                 const link = String(note.link ?? '').trim();
                 const safeLink = escapeHtml(link);
-                const linkMarkup = link ? `<div class="note-link"><strong>Link:</strong> <a href="${safeLink}" target="_blank" rel="noopener noreferrer">${safeTitle}</a></div>` : '';
+                const linkMarkup = link ? `<div class="note-link"><i class="fa-solid fa-link" aria-hidden="true"></i><a href="${safeLink}" target="_blank" rel="noopener noreferrer">${safeTitle}</a></div>` : '';
                 const pinned = Number(note.pinned ?? 0) === 1;
                 const pinLabel = pinned ? 'Unpin' : 'Pin';
 
@@ -276,12 +276,12 @@ export async function index(searchTerm = '', page = 1, categoryId = '') {
                         <h3>${safeTitle}</h3>
                         <p class="note-description">${safeDescription}</p>
                         ${linkMarkup}
-                        <div class="note-meta">${safeCreatedAt}</div>
+                        <div class="note-meta"><i class="fa-regular fa-clock" aria-hidden="true"></i>${safeCreatedAt}</div>
                         <div class="card-actions">
-                            <button type="button" data-action="view" data-id="${note.id}">View</button>
-                            <button type="button" data-action="edit" data-id="${note.id}">Edit</button>
-                            <button type="button" data-action="toggle-pin" data-id="${note.id}" data-pinned="${pinned ? '1' : '0'}">${pinLabel}</button>
-                            <button type="button" data-action="delete" data-id="${note.id}">Delete</button>
+                            <button type="button" class="icon-action" data-action="view" data-id="${note.id}" title="View note" aria-label="View note"><i class="fa-regular fa-eye" aria-hidden="true"></i></button>
+                            <button type="button" class="icon-action" data-action="edit" data-id="${note.id}" title="Edit note" aria-label="Edit note"><i class="fa-solid fa-pen" aria-hidden="true"></i></button>
+                            <button type="button" class="icon-action" data-action="toggle-pin" data-id="${note.id}" data-pinned="${pinned ? '1' : '0'}" title="${pinLabel} note" aria-label="${pinLabel} note"><i class="fa-solid fa-thumbtack" aria-hidden="true"></i></button>
+                            <button type="button" class="icon-action" data-action="delete" data-id="${note.id}" title="Delete note" aria-label="Delete note"><i class="fa-regular fa-trash-can" aria-hidden="true"></i></button>
                         </div>
                     </article>
                 `;
@@ -352,13 +352,13 @@ export async function viewNote(id) {
         const link = String(note.link ?? '').trim();
         const safeLink = escapeHtml(link);
         const safeTitle = escapeHtml(note.title ?? 'Untitled');
-        const linkMarkup = link ? `<p class="paper-link"><strong>Link:</strong> <a href="${safeLink}" target="_blank" rel="noopener noreferrer">${safeTitle}</a></p>` : '';
+        const linkMarkup = link ? `<p class="paper-link"><i class="fa-solid fa-link" aria-hidden="true"></i><a href="${safeLink}" target="_blank" rel="noopener noreferrer">${safeTitle}</a></p>` : '';
 
         noteDetailsModal.innerHTML = `
             <div class="modal-content paper-note">
                 <div class="paper-header">
                     <span class="category-pill">${escapeHtml(note.category_name || note.category_id || 'Uncategorized')}</span>
-                    <span class="paper-meta">${escapeHtml(note.created_at ?? 'N/A')}</span>
+                    <span class="paper-meta"><i class="fa-regular fa-clock" aria-hidden="true"></i>${escapeHtml(note.created_at ?? 'N/A')}</span>
                     <span class="close" aria-label="Close note">&times;</span>
                 </div>
                 <div class="paper-body">
