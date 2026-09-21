@@ -14,6 +14,7 @@
 
     <!-- Load shared components relative to this layout file. -->
     <?php include __DIR__ . '/../components/navbar.php'; ?>
+    
 
     <main>
         <!-- Render page content when the caller provides it. -->

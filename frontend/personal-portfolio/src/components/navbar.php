@@ -1,170 +1,126 @@
 <style>
-    /*
-    ========================================
-    CSS Custom Properties (Variables)
-    ========================================
-    Using variables makes it easy to customize the navbar's theme.
-    */
     :root {
         --color-background: #ffffff;
-        /* White background for a clean look */
-        --color-foreground: #f8f9fa;
-        /* A very light grey for subtle distinction if needed */
-        --color-text: #333333;
-        /* Dark grey for readable text, high contrast */
-        --color-primary: #007bff;
-        /* A standard, accessible blue for CTAs */
-        --color-primary-hover: #0056b3;
-        /* A darker blue for hover/focus states */
-        --color-border-subtle: #e9ecef;
-        /* Subtle border color */
-
-        --font-family-sans-serif: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
-        --font-weight-normal: 400;
-        --font-weight-bold: 700;
-
-        --navbar-height: 70px;
-        --navbar-padding: 1rem;
-        --container-width: 1140px;
-
-        --transition-speed: 0.2s;
+        --color-surface: #f8fafc;
+        --color-soft: #eef4ff;
+        --color-text: #111827;
+        --color-muted: #5b6472;
+        --color-primary: #2563eb;
+        --color-primary-hover: #1d4ed8;
+        --color-border: #e5e7eb;
+        --shadow-soft: 0 10px 30px rgba(15, 23, 42, 0.08);
+        --navbar-height: 76px;
+        --container-width: 1180px;
+        --transition-speed: 0.28s;
     }
 
-    /*
-    ========================================
-    Global Resets & Base Styles
-    ========================================
-    */
-    *,
-    *::before,
-    *::after {
+    * {
         box-sizing: border-box;
+    }
+
+    html {
+        scroll-behavior: smooth;
     }
 
     body {
         margin: 0;
-        font-family: var(--font-family-sans-serif);
-        font-size: 1rem;
-        font-weight: var(--font-weight-normal);
-        line-height: 1.5;
+        font-family: Arial, Helvetica, sans-serif;
         color: var(--color-text);
-        background-color: var(--color-background);
+        background: #f5f7fb;
     }
 
-    /* Add some placeholder content to demonstrate scrolling */
-    body::after {
-        content: 'Scroll down to see the navbar is not sticky by default.';
-        display: block;
-        text-align: center;
-        height: 200vh;
-        padding-top: 5rem;
-        color: #aaa;
+    a {
+        text-decoration: none;
+        color: inherit;
     }
 
-    /* Remove default list styles */
     ul {
         list-style: none;
         margin: 0;
         padding: 0;
     }
 
-    /* Basic link styling */
-    a {
-        text-decoration: none;
-        color: var(--color-text);
-    }
-
-    /*
-    ========================================
-    Main Navbar Structure
-    ========================================
-    */
     .navbar {
+        position: sticky;
+        top: 0;
+        z-index: 1000;
         height: var(--navbar-height);
         display: flex;
         align-items: center;
-        border-bottom: 1px solid var(--color-border-subtle);
-        /* Keep the mobile dropdown positioned relative to the navbar. */
-        position: relative;
+        background: rgba(255, 255, 255, 0.9);
+        backdrop-filter: blur(10px);
+        border-bottom: 1px solid var(--color-border);
+        box-shadow: 0 2px 16px rgba(15, 23, 42, 0.04);
+        transform: translateY(0);
+        transition: transform var(--transition-speed) ease, box-shadow var(--transition-speed) ease;
+    }
+
+    .navbar.is-hidden {
+        transform: translateY(-110%);
+        box-shadow: none;
     }
 
     .navbar__container {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        width: 100%;
-        max-width: var(--container-width);
+        width: min(var(--container-width), calc(100% - 2rem));
         margin: 0 auto;
-        padding: 0 var(--navbar-padding);
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
     }
 
     .navbar__brand {
-        font-size: 1.5rem;
-        font-weight: var(--font-weight-bold);
+        font-size: 1.3rem;
+        font-weight: 700;
+        letter-spacing: -0.04em;
     }
 
-    /*
-    ========================================
-    Mobile Menu & Hamburger Toggle
-    ========================================
-    This is the mobile-first approach.
-    */
     .navbar__toggle {
         display: block;
-        /* Shown on mobile */
         padding: 0.5rem;
-        border: none;
+        border: 0;
         background: transparent;
         cursor: pointer;
-        z-index: 1001;
-        /* Ensure it's on top of menu */
     }
 
-    /* Hamburger icon lines */
     .navbar__toggle .bar {
         display: block;
-        width: 25px;
-        height: 3px;
-        margin: 5px auto;
-        background-color: var(--color-text);
-        transition: all var(--transition-speed) ease-in-out;
+        width: 24px;
+        height: 2px;
+        background: var(--color-text);
+        margin: 5px 0;
+        border-radius: 999px;
+        transition: all var(--transition-speed) ease;
     }
 
-    /* Hamburger animation to 'X' when active */
     .navbar__toggle.is-active .bar:nth-child(2) {
         opacity: 0;
     }
 
     .navbar__toggle.is-active .bar:nth-child(1) {
-        transform: translateY(8px) rotate(45deg);
+        transform: translateY(7px) rotate(45deg);
     }
 
     .navbar__toggle.is-active .bar:nth-child(3) {
-        transform: translateY(-8px) rotate(-45deg);
+        transform: translateY(-7px) rotate(-45deg);
     }
 
     .navbar__menu {
         display: none;
-        /* Hidden by default on mobile */
-        flex-direction: column;
-        width: 100%;
         position: absolute;
         top: var(--navbar-height);
         left: 0;
-        background-color: var(--color-background);
-        border-bottom: 1px solid var(--color-border-subtle);
-        box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
-        z-index: 1000;
+        width: 100%;
+        background: rgba(255, 255, 255, 0.98);
+        border-bottom: 1px solid var(--color-border);
+        box-shadow: var(--shadow-soft);
     }
 
-    /* Show the menu when the .is-active class is present */
     .navbar__menu.is-active {
-        display: flex;
+        display: block;
     }
 
     .navbar__item {
-        text-align: center;
-        border-bottom: 1px solid var(--color-border-subtle);
+        border-bottom: 1px solid var(--color-border);
     }
 
     .navbar__item:last-child {
@@ -173,119 +129,77 @@
 
     .navbar__link {
         display: block;
-        padding: 1.5rem;
-        transition: background-color var(--transition-speed) ease;
+        padding: 1rem 1.25rem;
+        font-size: 0.96rem;
+        font-weight: 600;
+        color: var(--color-text);
+        transition: background var(--transition-speed) ease, color var(--transition-speed) ease;
     }
 
     .navbar__link:hover,
     .navbar__link:focus {
-        background-color: var(--color-foreground);
+        background: var(--color-surface);
     }
 
-    /* Call to Action (CTA) Button - Mobile */
     .navbar__link--cta {
-        color: var(--color-primary);
-        font-weight: var(--font-weight-bold);
+        color: #fff;
+        background: var(--color-primary);
+        border-radius: 999px;
+        margin: 0.75rem 1rem 1rem;
+        text-align: center;
+        font-weight: 700;
     }
 
-    /* Use :focus-visible for a better accessibility experience. 
-        This outline only shows for keyboard users, not mouse clicks. */
-    :is(.navbar__toggle, .navbar__link):focus-visible {
-        outline: 2px solid var(--color-primary);
-        outline-offset: 2px;
-        border-radius: 2px;
+    .navbar__link--cta:hover,
+    .navbar__link--cta:focus {
+        background: var(--color-primary-hover);
     }
 
-    /*
-    ========================================
-    Desktop Navbar Styles (Responsive)
-    ========================================
-    Media query for screens 768px and wider.
-    */
-    @media (min-width: 768px) {
+    @media (min-width: 840px) {
         .navbar__toggle {
             display: none;
-            /* Hide the hamburger on desktop */
         }
 
         .navbar__menu {
-            /* These properties are correct for the <nav> container */
             display: flex;
-            align-items: center;
             position: static;
             width: auto;
-            background-color: transparent;
+            background: transparent;
             border: none;
             box-shadow: none;
         }
 
         .navbar__list {
-            /* This makes the list items (<li>) arrange in a row */
             display: flex;
             align-items: center;
+            gap: 0.5rem;
         }
 
         .navbar__item {
-            /* Styles for individual list items are fine */
             border: none;
-            margin-left: 0.5rem;
-            /* Space between links */
         }
 
         .navbar__link {
-            /* Adjusted styles for a horizontal layout */
-            padding: 0.5rem 1rem;
-            border-radius: 4px;
-            /* Add a subtle bottom border for a clean underline effect */
-            border-bottom: 2px solid transparent;
+            padding: 0.7rem 1rem;
+            border-radius: 999px;
         }
 
-        /* The classic "border on hover" effect */
         .navbar__link:not(.navbar__link--cta):hover,
         .navbar__link:not(.navbar__link--cta):focus {
-            background-color: transparent;
-            /* Override mobile hover */
-            border-bottom-color: var(--color-primary);
-            color: var(--color-text);
-            /* Ensure text color remains consistent */
-        }
-
-        /* CTA Button Styling for Desktop */
-        .navbar__item--cta {
-            margin-left: 1.5rem;
+            background: var(--color-soft);
         }
 
         .navbar__link--cta {
-            color: #fff;
-            /* White text on colored background */
-            background-color: var(--color-primary);
-            padding: 0.75rem 1.5rem;
-            /* Make it more prominent */
-            transition: background-color var(--transition-speed) ease;
-            border-bottom: none;
-            /* The CTA button doesn't need the bottom border */
-        }
-
-        /* CTA hover effect */
-        .navbar__link--cta:hover,
-        .navbar__link--cta:focus {
-            background-color: var(--color-primary-hover);
-            border-bottom: none;
-            /* Ensure no border on hover either */
+            margin: 0;
+            padding: 0.8rem 1.2rem;
         }
     }
 </style>
-<header class="navbar" role="banner">
+
+<header class="navbar" role="banner" id="siteNavbar">
     <div class="navbar__container">
-        <!-- Use the portfolio name as the responsive navbar brand. -->
         <a href="../index.php" class="navbar__brand">Ronnie-Legaspi</a>
 
-        <!-- 
-            This button controls the mobile navigation menu.
-            - `aria-label` describes the button to screen readers.
-            - `aria-controls` points to the ID of the menu it controls.
-            - `aria-expanded` tells screen readers if the menu is open or closed.
-        -->
         <button class="navbar__toggle"
             id="navbarToggle"
             type="button"
@@ -302,8 +216,9 @@
                 <li class="navbar__item"><a href="index.php" class="navbar__link">Home</a></li>
                 <li class="navbar__item"><a href="profile.php" class="navbar__link">Profile</a></li>
                 <li class="navbar__item"><a href="projects.php" class="navbar__link">Projects</a></li>
-                <li class="navbar__item navbar__item--cta">
-                    <a href="#contact" class="navbar__link navbar__link--cta">Contact Me</a>
+                <li class="navbar__item"><a href="#contact" class="navbar__link">Contact Me</a></li>
+                <li class="navbar__item">
+                    <a href="book-schedule.php" class="navbar__link navbar__link--cta">Book a Schedule</a>
                 </li>
             </ul>
         </nav>
@@ -311,40 +226,63 @@
 </header>
 
 <script>
-    // A small, accessible script to toggle the mobile menu.
-    document.addEventListener('DOMContentLoaded', function() {
+    document.addEventListener('DOMContentLoaded', function () {
+        const navbar = document.getElementById('siteNavbar');
         const navbarToggle = document.getElementById('navbarToggle');
         const navbarMenu = document.getElementById('navbarMenu');
 
         if (navbarToggle && navbarMenu) {
-            navbarToggle.addEventListener('click', function() {
-                // Toggle the .is-active class on both the toggle and the menu
-                navbarToggle.classList.toggle('is-active');
-                navbarMenu.classList.toggle('is-active');
-
-                // Update the aria-expanded attribute
+            navbarToggle.addEventListener('click', function () {
                 const isExpanded = navbarToggle.getAttribute('aria-expanded') === 'true';
-                navbarToggle.setAttribute('aria-expanded', !isExpanded);
+                navbarToggle.setAttribute('aria-expanded', String(!isExpanded));
+                navbarToggle.classList.toggle('is-active', !isExpanded);
+                navbarMenu.classList.toggle('is-active', !isExpanded);
             });
 
-            // Close the mobile menu after a navigation link is selected.
-            navbarMenu.querySelectorAll('.navbar__link').forEach(function(link) {
-                link.addEventListener('click', function() {
+            navbarMenu.querySelectorAll('.navbar__link').forEach(function (link) {
+                link.addEventListener('click', function () {
                     navbarToggle.classList.remove('is-active');
                     navbarMenu.classList.remove('is-active');
                     navbarToggle.setAttribute('aria-expanded', 'false');
                 });
             });
 
-            // Allow keyboard users to close the mobile menu with Escape.
-            document.addEventListener('keydown', function(event) {
+            document.addEventListener('keydown', function (event) {
                 if (event.key === 'Escape') {
                     navbarToggle.classList.remove('is-active');
                     navbarMenu.classList.remove('is-active');
                     navbarToggle.setAttribute('aria-expanded', 'false');
-                    navbarToggle.focus();
                 }
             });
+        }
+
+        if (navbar) {
+            let lastScrollY = window.scrollY;
+            let hideTimer = null;
+
+            function updateNavbarState() {
+                const currentY = window.scrollY;
+                const isScrollingDown = currentY > lastScrollY && currentY > 60;
+
+                if (isScrollingDown) {
+                    navbar.classList.add('is-hidden');
+                } else {
+                    navbar.classList.remove('is-hidden');
+                }
+
+                lastScrollY = currentY;
+            }
+
+            window.addEventListener('scroll', function () {
+                updateNavbarState();
+                clearTimeout(hideTimer);
+
+                hideTimer = setTimeout(function () {
+                    if (window.scrollY > 20) {
+                        navbar.classList.add('is-hidden');
+                    }
+                }, 1000);
+            }, { passive: true });
         }
     });
 </script>

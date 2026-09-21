@@ -1,1 +1,5 @@
 .env
+
+# I-ignore ang laman ng cache pero panatilihin ang folder mismo gamit ang .gitkeep
+backend/cache/*
+!backend/cache/.gitkeep
