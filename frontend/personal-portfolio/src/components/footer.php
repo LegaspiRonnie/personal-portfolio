@@ -5,6 +5,7 @@ $footerLinks = [
     'linkedin' => 'https://www.linkedin.com/in/legaspi-ronnie-h-385690347/',
     'instagram' => 'https://www.facebook.com/ronniehortizuela.legaspi',
     'facebook' => 'https://www.facebook.com/ron_aint_simp.23/',
+    'youtube' => 'https://www.youtube.com/@ronnielegaspi4731',
 ];
 
 $location = [
@@ -45,6 +46,7 @@ $location = [
                         <li><a href="<?php echo htmlspecialchars($footerLinks['linkedin'], ENT_QUOTES, 'UTF-8'); ?>" target="_blank" rel="noreferrer">LinkedIn</a></li>
                         <li><a href="<?php echo htmlspecialchars($footerLinks['instagram'], ENT_QUOTES, 'UTF-8'); ?>" target="_blank" rel="noreferrer">Instagram</a></li>
                         <li><a href="<?php echo htmlspecialchars($footerLinks['facebook'], ENT_QUOTES, 'UTF-8'); ?>" target="_blank" rel="noreferrer">Facebook</a></li>
+                        <li><a href="<?php echo htmlspecialchars($footerLinks['youtube'], ENT_QUOTES, 'UTF-8'); ?>" target="_blank" rel="noreferrer">Youtube</a></li>
                     </ul>
                 </div>
             </div>

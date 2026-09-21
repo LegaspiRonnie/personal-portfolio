@@ -1,4 +1,5 @@
 <?php
+
 //test
 declare(strict_types=1);
 
@@ -18,12 +19,12 @@ function sendJson(int $statusCode, array $payload): void
     exit;
 }
 
-$city = trim((string)($_GET['city'] ?? ''));
+$city = trim((string) ($_GET['city'] ?? ''));
 
 if ($city === '') {
     sendJson(400, [
         'success' => false,
-        'message' => 'City is required.'
+        'message' => 'City is required.',
     ]);
 }
 
@@ -31,14 +32,14 @@ $geocodingQuery = http_build_query([
     'name' => $city,
     'count' => 1,
     'language' => 'en',
-    'format' => 'json'
+    'format' => 'json',
 ]);
 
 $geocodingResponse = file_get_contents($geocodingUrl . '?' . $geocodingQuery);
 if ($geocodingResponse === false) {
     sendJson(502, [
         'success' => false,
-        'message' => 'Unable to connect to weather service.'
+        'message' => 'Unable to connect to weather service.',
     ]);
 }
 
@@ -46,7 +47,7 @@ $data = json_decode($geocodingResponse, true);
 if (!is_array($data) || empty($data['results'][0])) {
     sendJson(404, [
         'success' => false,
-        'message' => 'City not found.'
+        'message' => 'City not found.',
     ]);
 }
 
@@ -57,7 +58,7 @@ $longitude = $location['longitude'] ?? null;
 if (!is_numeric($latitude) || !is_numeric($longitude)) {
     sendJson(502, [
         'success' => false,
-        'message' => 'Location coordinates are missing.'
+        'message' => 'Location coordinates are missing.',
     ]);
 }
 
@@ -65,14 +66,14 @@ $forecastQuery = http_build_query([
     'latitude' => (float) $latitude,
     'longitude' => (float) $longitude,
     'current' => 'temperature_2m,relative_humidity_2m,weather_code,wind_speed_10m',
-    'timezone' => 'auto'
+    'timezone' => 'auto',
 ]);
 
 $forecastResponse = file_get_contents($forecastUrl . '?' . $forecastQuery);
 if ($forecastResponse === false) {
     sendJson(502, [
         'success' => false,
-        'message' => 'Unable to fetch weather forecast.'
+        'message' => 'Unable to fetch weather forecast.',
     ]);
 }
 
@@ -80,7 +81,7 @@ $weather = json_decode($forecastResponse, true);
 if (!is_array($weather) || !isset($weather['current'])) {
     sendJson(502, [
         'success' => false,
-        'message' => 'Invalid weather forecast response.'
+        'message' => 'Invalid weather forecast response.',
     ]);
 }
 
@@ -99,5 +100,5 @@ sendJson(200, [
         'humidity' => $current['relative_humidity_2m'] ?? null,
         'wind_speed' => $current['wind_speed_10m'] ?? null,
         'weather_code' => $current['weather_code'] ?? null,
-    ]
+    ],
 ]);

@@ -1,5 +1,14 @@
 {
     "require": {
+        "php": "^8.5.0",
         "vlucas/phpdotenv": "^5.7"
+    },
+    "require-dev": {
+        "phpstan/phpstan": "^2.2",
+        "friendsofphp/php-cs-fixer": "^3.95"
+    },
+    "scripts": {
+        "lint": "vendor/bin/php-cs-fixer fix",
+        "analyze": "vendor/bin/phpstan analyze"
     }
 }

@@ -19,8 +19,8 @@ $canonicalUrl = $siteUrl . $canonicalPath;
     <?php
     // Load the frontend environment so the application title can come from frontend/.env.
     require_once dirname(__DIR__, 3) . '/vendor/autoload.php';
-    Dotenv\Dotenv::createImmutable(dirname(__DIR__, 3))->safeLoad();
-    ?>
+Dotenv\Dotenv::createImmutable(dirname(__DIR__, 3))->safeLoad();
+?>
     <meta name="description" content="<?php echo htmlspecialchars($pageDescription, ENT_QUOTES, 'UTF-8'); ?>">
     <meta name="author" content="Ronnie Hortizuela Legaspi">
     <meta name="robots" content="index, follow">
@@ -46,17 +46,17 @@ $canonicalUrl = $siteUrl . $canonicalPath;
 
     <script type="application/ld+json">
         <?php echo json_encode([
-            '@context' => 'https://schema.org',
-            '@type' => 'Person',
-            'name' => 'Ronnie Hortizuela Legaspi',
-            'jobTitle' => 'Backend Developer',
-            'description' => $pageDescription,
-            'url' => $siteUrl,
-            'email' => 'ronnielegaspi98@gmail.com',
-            'telephone' => '+639930954435',
-            'sameAs' => [$hyperLinks['github_profile'], $hyperLinks['linkedin_profile']],
-            'knowsAbout' => ['PHP', 'Laravel', 'REST APIs', 'React', 'Node.js', 'MySQL', 'PostgreSQL'],
-        ], JSON_HEX_TAG | JSON_HEX_AMP | JSON_HEX_APOS | JSON_HEX_QUOT); ?>
+        '@context' => 'https://schema.org',
+        '@type' => 'Person',
+        'name' => 'Ronnie Hortizuela Legaspi',
+        'jobTitle' => 'Backend Developer',
+        'description' => $pageDescription,
+        'url' => $siteUrl,
+        'email' => 'ronnielegaspi98@gmail.com',
+        'telephone' => '+639930954435',
+        'sameAs' => [$hyperLinks['github_profile'], $hyperLinks['linkedin_profile']],
+        'knowsAbout' => ['PHP', 'Laravel', 'REST APIs', 'React', 'Node.js', 'MySQL', 'PostgreSQL'],
+    ], JSON_HEX_TAG | JSON_HEX_AMP | JSON_HEX_APOS | JSON_HEX_QUOT); ?>
     </script>
 
     <link 

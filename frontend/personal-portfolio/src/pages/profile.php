@@ -5,7 +5,7 @@ $pageDescription = 'Learn about Ronnie Legaspi, a full-stack web developer and I
 include_once __DIR__ . '/../components/icon.php';
 
 // 2. Start buffering the HTML output
- ob_start();
+ob_start();
 ?>
 
 <!-- Everything inside here is captured into the buffer -->
@@ -187,5 +187,5 @@ include_once __DIR__ . '/../components/icon.php';
  
  <?php
  $content = ob_get_clean();
- include __DIR__ . '/../layout/layout.php';
+include __DIR__ . '/../layout/layout.php';
 ?>

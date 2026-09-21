@@ -1,0 +1,8 @@
+parameters:
+    # Level 5 is a great starting strictness for existing projects (Scale is 0-9)
+    level: 5
+    
+    # The folders you want to check (adjust these to match your project)
+    paths:
+        - personal-portfolio
+        - projects

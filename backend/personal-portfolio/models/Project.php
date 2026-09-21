@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 class Project
@@ -17,16 +18,16 @@ class Project
     {
         if ($id === null) {
             $stmt = $this->conn->query(
-                "SELECT * FROM {$this->table} LIMIT " . self::LIST_LIMIT
+                "SELECT * FROM {$this->table} LIMIT " . self::LIST_LIMIT,
             );
-            
+
             $projects = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
-            return $projects === false ? [] : $projects;
+            return $projects;
         }
 
         $stmt = $this->conn->prepare(
-            "SELECT * FROM {$this->table} WHERE id = :id LIMIT 1"
+            "SELECT * FROM {$this->table} WHERE id = :id LIMIT 1",
         );
         $stmt->bindValue(':id', $id, PDO::PARAM_INT);
         $stmt->execute();

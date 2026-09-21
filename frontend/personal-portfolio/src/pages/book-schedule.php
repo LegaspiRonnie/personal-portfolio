@@ -5,7 +5,7 @@ $pageDescription = 'View Ronnie Legaspi\'s availability and schedule a conversat
 include_once __DIR__ . '/../components/icon.php';
 
 // 2. Start buffering the HTML output
-ob_start(); 
+ob_start();
 ?>
 
 <!-- Everything inside here is captured into the buffer -->
@@ -353,12 +353,9 @@ ob_start();
     });
 </script>
 
-<?php 
+<?php
 // 3. Save the captured HTML into $content and clear the buffer
-$content = ob_get_clean(); 
+$content = ob_get_clean();
 
 // 4. Load the master layout, which will now echo our $content
-include '../layout/layout.php'; 
-?>
-
-
+include '../layout/layout.php';

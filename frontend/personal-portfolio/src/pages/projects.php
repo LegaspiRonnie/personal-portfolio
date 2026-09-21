@@ -3,7 +3,7 @@
 $pageTitle = 'Projects | Ronnie Legaspi';
 $pageDescription = 'Explore Ronnie Legaspi\'s selected projects, including a civic incident reporting system, HR workflow automation, and event attendance management platform.';
 include_once __DIR__ . '/../components/icon.php';
- ob_start();
+ob_start();
 ?>
 
 <div class="projects-page">
@@ -96,5 +96,5 @@ include_once __DIR__ . '/../components/icon.php';
  
  <?php
  $content = ob_get_clean();
- include __DIR__ . '/../layout/layout.php';
+include __DIR__ . '/../layout/layout.php';
 ?>

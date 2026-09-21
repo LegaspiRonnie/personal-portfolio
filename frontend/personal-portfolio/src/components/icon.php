@@ -1,4 +1,5 @@
 <?php
+
 if (!function_exists('portfolioIcon')) {
     function portfolioIcon(string $name, string $title): string
     {

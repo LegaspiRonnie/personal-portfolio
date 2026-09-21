@@ -32,7 +32,7 @@ class Database
             'mysql:host=%s;port=%s;dbname=%s;charset=utf8mb4',
             $_ENV['DB_HOST'],
             $_ENV['DB_PORT'],
-            $_ENV['DB_NAME']
+            $_ENV['DB_NAME'],
         );
 
         // Create one shared PDO connection with exceptions and native prepared statements enabled.
