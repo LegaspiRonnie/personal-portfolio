@@ -1,35 +1,45 @@
 <?php
 $pageTitle = 'Ronnie-Legaspi';
+$pageDescription = 'Ronnie Legaspi is a backend-focused full-stack developer building secure APIs, Laravel systems, React applications, and reliable digital products.';
+$indexLinks = [
+    'github_profile' => 'https://github.com/LegaspiRonnie',
+];
+include_once __DIR__ . '/../components/icon.php';
 ob_start();
 ?>
 
 <section class="portfolio-hero">
     <div class="portfolio-hero__content">
-        <p class="portfolio-hero__eyebrow">Software Engineer • Creative Problem Solver</p>
-        <h1>Building thoughtful digital experiences.</h1>
+        <p class="portfolio-hero__eyebrow"><span>•</span> Available for consulting &amp; projects</p>
+        <h1>Ronnie Legaspi</h1>
+        <p class="portfolio-hero__role">Backend Developer · API Integrations, Security &amp; Systems</p>
         <p class="portfolio-hero__text">
-            I design and build digital products that are practical, elegant, and user-focused.
-            From front-end experiences to full project systems, I create work that balances function and clarity.
+            I build secure APIs and reliable backend systems that turn complex requirements into practical products.
         </p>
 
         <div class="portfolio-hero__actions">
-            <a href="projects.php" class="portfolio-hero__button portfolio-hero__button--primary">View Projects</a>
-            <a href="book-schedule.php" class="portfolio-hero__button portfolio-hero__button--secondary">Book a Schedule</a>
+            <a href="projects.php" class="portfolio-hero__button portfolio-hero__button--primary">View My Work</a>
+            <a href="book-schedule.php" class="portfolio-hero__button portfolio-hero__button--secondary">Get in Touch</a>
         </div>
     </div>
 
-    <div class="portfolio-hero__panel">
-        <div class="portfolio-hero__stat">
-            <strong>5+</strong>
-            <span>Years building</span>
+    <div class="portfolio-hero__visual">
+        <div class="portfolio-hero__image-wrap">
+            <img src="../../assets/images/profile.jpg" alt="Portrait of Ronnie Legaspi, backend developer" class="portfolio-hero__image" width="330" height="330" fetchpriority="high">
         </div>
-        <div class="portfolio-hero__stat">
-            <strong>20+</strong>
-            <span>Projects shipped</span>
-        </div>
-        <div class="portfolio-hero__stat">
-            <strong>100%</strong>
-            <span>Focused on quality</span>
+
+        <div class="portfolio-hero__contrib-card">
+            <div class="portfolio-hero__contrib-header">
+                <span>GitHub contributions</span>
+                <a href="<?php echo htmlspecialchars($indexLinks['github_profile'], ENT_QUOTES, 'UTF-8'); ?>" class="portfolio-hero__profile-link">View profile</a>
+            </div>
+            <div class="portfolio-hero__contrib-placeholder">
+                <img
+                    src="https://ghchart.rshah.org/LegaspiRonnie"
+                    alt="GitHub contribution activity for Ronnie Legaspi"
+                    loading="lazy"
+                    class="portfolio-hero__contrib-image">
+            </div>
         </div>
     </div>
 </section>
@@ -37,26 +47,26 @@ ob_start();
 <section class="portfolio-section">
     <div class="portfolio-section__heading">
         <p class="portfolio-section__eyebrow">What I do</p>
-        <h2>Thoughtful work across design, development, and delivery.</h2>
+        <h2>Backend-first development with a full-stack perspective.</h2>
     </div>
 
     <div class="portfolio-grid">
         <article class="portfolio-card">
-            <span class="portfolio-card__tag">Frontend</span>
-            <h3>Responsive Interfaces</h3>
-            <p>Clean, modern interfaces designed to feel intuitive and easy to use on every screen.</p>
+            <span class="portfolio-card__tag">APIs</span>
+            <h3><?php echo portfolioIcon('api', 'API integrations'); ?>Reliable Integrations</h3>
+            <p>REST APIs and third-party integrations that connect products, services, and useful data.</p>
         </article>
 
         <article class="portfolio-card">
             <span class="portfolio-card__tag">Backend</span>
-            <h3>Reliable Systems</h3>
-            <p>Scalable and maintainable application logic that supports real business needs.</p>
+            <h3><?php echo portfolioIcon('shield', 'Secure backend systems'); ?>Secure Systems</h3>
+            <p>Laravel, Node.js, authentication, authorization, and maintainable logic for real workflows.</p>
         </article>
 
         <article class="portfolio-card">
-            <span class="portfolio-card__tag">Strategy</span>
-            <h3>Product Thinking</h3>
-            <p>Clear problem-solving and thoughtful product decisions from idea to launch.</p>
+            <span class="portfolio-card__tag">Data</span>
+            <h3><?php echo portfolioIcon('database', 'Database foundations'); ?>Strong Foundations</h3>
+            <p>MySQL, PostgreSQL, schema design, and query optimization that keep applications dependable.</p>
         </article>
     </div>
 </section>
@@ -64,25 +74,25 @@ ob_start();
 <section class="portfolio-section portfolio-section--split">
     <div class="portfolio-copy">
         <p class="portfolio-section__eyebrow">About Me</p>
-        <h2>Designing digital work that feels human.</h2>
+        <h2>Practical technology, built with care.</h2>
         <p>
-            I enjoy building polished user experiences and practical systems that help people move faster,
-            understand more, and feel confident using the tools they need every day.
+            I enjoy solving difficult problems through clean code, thoughtful interfaces, and systems that are
+            secure, testable, and easy for teams to maintain.
         </p>
     </div>
 
     <div class="portfolio-focus">
         <div class="portfolio-focus__item">
-            <strong>UX-first</strong>
-            <span>Clear interfaces and smoother flows</span>
+            <strong>Problem solving</strong>
+            <span>Debugging, testing, and clear technical decisions</span>
         </div>
         <div class="portfolio-focus__item">
-            <strong>Performance</strong>
-            <span>Fast, lean, efficient experiences</span>
+            <strong>API focused</strong>
+            <span>Integrations that connect products and services</span>
         </div>
         <div class="portfolio-focus__item">
-            <strong>Execution</strong>
-            <span>From idea to working product</span>
+            <strong>Team ready</strong>
+            <span>Readable systems built for collaboration</span>
         </div>
     </div>
 </section>
@@ -93,14 +103,18 @@ ob_start();
         margin: 0 auto;
         min-height: calc(100vh - 76px);
         display: grid;
-        grid-template-columns: 1.35fr 0.85fr;
-        gap: 2rem;
+        grid-template-columns: 1fr 1.15fr;
+        gap: 2.2rem;
         align-items: center;
         padding: 2rem 0 3rem;
     }
 
     .portfolio-hero__content {
+        min-height: 580px;
         padding: 1rem 0;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
     }
 
     .portfolio-hero__eyebrow,
@@ -115,7 +129,7 @@ ob_start();
 
     .portfolio-hero h1 {
         margin: 0;
-        font-size: clamp(2.5rem, 6vw, 5rem);
+        font-size: clamp(2.5rem, 5vw, 5rem);
         line-height: 0.98;
         letter-spacing: -0.06em;
         color: #111827;
@@ -123,10 +137,17 @@ ob_start();
 
     .portfolio-hero__text {
         max-width: 660px;
-        margin-top: 1.25rem;
-        font-size: 1.06rem;
-        line-height: 1.8;
-        color: #4b5563;
+        margin-top: 1.15rem;
+        font-size: 1rem;
+        line-height: 1.7;
+        color: #5b6472;
+    }
+
+    .portfolio-hero__role {
+        margin: 1rem 0 0;
+        font-size: 1.12rem;
+        line-height: 1.5;
+        color: #64748b;
     }
 
     .portfolio-hero__actions {
@@ -141,13 +162,15 @@ ob_start();
         align-items: center;
         justify-content: center;
         border-radius: 999px;
-        padding: 0.9rem 1.4rem;
+        padding: 0.95rem 1.5rem;
         font-weight: 700;
-        transition: transform 0.2s ease, background 0.2s ease;
+        transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
+        text-decoration: none;
     }
 
     .portfolio-hero__button:hover {
         transform: translateY(-1px);
+        box-shadow: 0 10px 24px rgba(37, 99, 235, 0.12);
     }
 
     .portfolio-hero__button--primary {
@@ -160,37 +183,94 @@ ob_start();
         color: #1d4ed8;
     }
 
-    .portfolio-hero__panel {
-        display: grid;
-        grid-template-columns: repeat(3, minmax(0, 1fr));
-        gap: 1rem;
+    .portfolio-hero__visual {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 1.2rem;
+    }
+
+    .portfolio-hero__image-wrap {
+        width: min(330px, 80vw);
+        height: min(330px, 80vw);
+        aspect-ratio: 1 / 1;
+        border-radius: 50%;
+        overflow: hidden;
+        box-sizing: border-box;
+        padding: 0.6rem;
+        background: linear-gradient(135deg, #2563eb, #dbeafe);
+        box-shadow: 0 18px 40px rgba(37, 99, 235, 0.14);
+    }
+
+    .portfolio-hero__image {
+        display: block;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        object-position: center center;
+        border-radius: 50%;
+        background: #f3f4f6;
+    }
+
+    .portfolio-hero__contrib-card {
+        width: 100%;
+        max-width: 620px;
         background: #ffffff;
         border: 1px solid #e5e7eb;
-        border-radius: 24px;
-        box-shadow: 0 20px 40px rgba(15, 23, 42, 0.06);
-        padding: 1.25rem;
+        border-radius: 22px;
+        box-shadow: 0 18px 36px rgba(15, 23, 42, 0.06);
+        padding: 1rem 1rem 0.85rem;
     }
 
-    .portfolio-hero__stat {
+    .portfolio-hero__contrib-header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 0.75rem;
+        margin-bottom: 0.8rem;
+        font-weight: 700;
+        color: #111827;
+    }
+
+    .portfolio-hero__contrib-header span {
+        font-size: 0.96rem;
+    }
+
+    .portfolio-hero__profile-link {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        padding: 0.45rem 0.8rem;
+        border-radius: 999px;
+        background: #eff6ff;
+        color: #1d4ed8;
+        text-decoration: none;
+        font-size: 0.72rem;
+        text-transform: uppercase;
+        letter-spacing: 0.08em;
+        font-weight: 700;
+    }
+
+    .portfolio-hero__contrib-placeholder {
+        width: 100%;
+        min-height: 150px;
+        position: relative;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 14px;
+        overflow: hidden;
+        padding: 1rem;
         background: #f8fafc;
         border: 1px solid #e5e7eb;
-        border-radius: 18px;
-        padding: 1.1rem 1rem;
-        text-align: center;
     }
 
-    .portfolio-hero__stat strong {
+    .portfolio-hero__contrib-image {
         display: block;
-        font-size: 1.8rem;
-        color: #111827;
-        letter-spacing: -0.05em;
-    }
-
-    .portfolio-hero__stat span {
-        display: block;
-        margin-top: 0.35rem;
-        color: #5b6472;
-        font-size: 0.86rem;
+        width: 100%;
+        max-width: 560px;
+        height: auto;
+        object-fit: contain;
     }
 
     .portfolio-section {
@@ -293,6 +373,10 @@ ob_start();
         .portfolio-hero {
             min-height: auto;
             padding-top: 1.5rem;
+        }
+
+        .portfolio-hero__content {
+            min-height: auto;
         }
 
         .portfolio-hero__panel {

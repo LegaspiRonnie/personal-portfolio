@@ -1,6 +1,8 @@
 <?php
 // 1. Set the browser title for the portfolio homepage.
-$pageTitle = 'Ronnie-Legaspi';
+$pageTitle = 'Book a Schedule | Ronnie Legaspi';
+$pageDescription = 'View Ronnie Legaspi\'s availability and schedule a conversation about web development, backend systems, API integrations, or consulting.';
+include_once __DIR__ . '/../components/icon.php';
 
 // 2. Start buffering the HTML output
 ob_start(); 
@@ -235,33 +237,33 @@ ob_start();
 <section class="booking-shell" aria-label="Booking schedule section">
     <div class="booking-shell__header">
         <p class="booking-shell__eyebrow">Availability</p>
-        <h2>Let’s plan your next project</h2>
+        <h2><?php echo portfolioIcon('calendar', 'Schedule a conversation'); ?>Let’s plan your next project</h2>
         <p>Here is my current schedule. If you want to book a session, click the button below.</p>
     </div>
 
     <!-- <div class="booking-shell__cards">
         <article class="booking-card">
             <span class="booking-card__tag">Consulting</span>
-            <h3>Discovery Call</h3>
+            <h3><?php echo portfolioIcon('phone', 'Discovery call'); ?>Discovery Call</h3>
             <p>30 minutes to talk through your goals, needs, and timeline.</p>
         </article>
 
         <article class="booking-card">
             <span class="booking-card__tag">Development</span>
-            <h3>Project Planning</h3>
+            <h3><?php echo portfolioIcon('briefcase', 'Project planning'); ?>Project Planning</h3>
             <p>Best for technical discussions, product planning, and roadmap reviews.</p>
         </article>
 
         <article class="booking-card">
             <span class="booking-card__tag">Collaboration</span>
-            <h3>Longer Session</h3>
+            <h3><?php echo portfolioIcon('code', 'Technical session'); ?>Longer Session</h3>
             <p>For deeper conversations, design feedback, or technical consulting.</p>
         </article>
     </div> -->
 
     <div class="booking-shell__panel">
         <div class="booking-shell__copy">
-            <h3>My schedule</h3>
+            <h3><?php echo portfolioIcon('calendar', 'Availability'); ?>My schedule</h3>
             <p>Available for freelance work, consulting, and collaboration opportunities.</p>
             <button type="button" class="booking-shell__button" data-booking-trigger>Book a Schedule</button>
         </div>

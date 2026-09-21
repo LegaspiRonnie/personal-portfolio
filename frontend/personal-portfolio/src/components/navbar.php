@@ -1,3 +1,12 @@
+<?php
+$currentPage = basename(parse_url($_SERVER['PHP_SELF'] ?? '', PHP_URL_PATH));
+
+function navbarLinkState(string $page, string $currentPage): string
+{
+    return $page === $currentPage ? ' is-active' : '';
+}
+?>
+
 <style>
     :root {
         --color-background: #ffffff;
@@ -27,6 +36,23 @@
         font-family: Arial, Helvetica, sans-serif;
         color: var(--color-text);
         background: #f5f7fb;
+    }
+
+    .skip-link {
+        position: fixed;
+        top: 0.75rem;
+        left: 0.75rem;
+        z-index: 2000;
+        padding: 0.7rem 1rem;
+        border-radius: 0.5rem;
+        background: var(--color-text);
+        color: #ffffff;
+        transform: translateY(-150%);
+        transition: transform var(--transition-speed) ease;
+    }
+
+    .skip-link:focus {
+        transform: translateY(0);
     }
 
     a {
@@ -141,6 +167,11 @@
         background: var(--color-surface);
     }
 
+    .navbar__link.is-active {
+        color: var(--color-primary-hover);
+        background: var(--color-soft);
+    }
+
     .navbar__link--cta {
         color: #fff;
         background: var(--color-primary);
@@ -153,6 +184,12 @@
     .navbar__link--cta:hover,
     .navbar__link--cta:focus {
         background: var(--color-primary-hover);
+    }
+
+    .navbar__link--cta.is-active {
+        color: #ffffff;
+        background: var(--color-primary-hover);
+        box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.16);
     }
 
     @media (min-width: 840px) {
@@ -198,7 +235,7 @@
 
 <header class="navbar" role="banner" id="siteNavbar">
     <div class="navbar__container">
-        <a href="../index.php" class="navbar__brand">Ronnie-Legaspi</a>
+        <a href="index.php" class="navbar__brand" aria-label="Ronnie Legaspi home">Ronnie-Legaspi</a>
 
         <button class="navbar__toggle"
             id="navbarToggle"
@@ -213,12 +250,12 @@
 
         <nav id="navbarMenu" class="navbar__menu" role="navigation" aria-labelledby="navbarToggle">
             <ul class="navbar__list">
-                <li class="navbar__item"><a href="index.php" class="navbar__link">Home</a></li>
-                <li class="navbar__item"><a href="profile.php" class="navbar__link">Profile</a></li>
-                <li class="navbar__item"><a href="projects.php" class="navbar__link">Projects</a></li>
-                <li class="navbar__item"><a href="#contact" class="navbar__link">Contact Me</a></li>
+                <li class="navbar__item"><a href="index.php" class="navbar__link<?php echo navbarLinkState('index.php', $currentPage); ?>"<?php echo $currentPage === 'index.php' ? ' aria-current="page"' : ''; ?>>Home</a></li>
+                <li class="navbar__item"><a href="profile.php" class="navbar__link<?php echo navbarLinkState('profile.php', $currentPage); ?>"<?php echo $currentPage === 'profile.php' ? ' aria-current="page"' : ''; ?>>Profile</a></li>
+                <li class="navbar__item"><a href="projects.php" class="navbar__link<?php echo navbarLinkState('projects.php', $currentPage); ?>"<?php echo $currentPage === 'projects.php' ? ' aria-current="page"' : ''; ?>>Projects</a></li>
+                <li class="navbar__item"><a href="contact.php" class="navbar__link<?php echo navbarLinkState('contact.php', $currentPage); ?>"<?php echo $currentPage === 'contact.php' ? ' aria-current="page"' : ''; ?>>Contact Me</a></li>
                 <li class="navbar__item">
-                    <a href="book-schedule.php" class="navbar__link navbar__link--cta">Book a Schedule</a>
+                    <a href="book-schedule.php" class="navbar__link navbar__link--cta<?php echo navbarLinkState('book-schedule.php', $currentPage); ?>"<?php echo $currentPage === 'book-schedule.php' ? ' aria-current="page"' : ''; ?>>Book a Schedule</a>
                 </li>
             </ul>
         </nav>
