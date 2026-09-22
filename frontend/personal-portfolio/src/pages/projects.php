@@ -1,6 +1,8 @@
 <?php
 
-require_once __DIR__ . '/../config/data.php';
+$data = require __DIR__ . '/../config/data.php';
+$pageMetadata = $data['pageMetadata'];
+$projectLinks = $data['projectLinks'];
 $pageTitle = $pageMetadata['projects']['title'];
 $pageDescription = $pageMetadata['projects']['description'];
 

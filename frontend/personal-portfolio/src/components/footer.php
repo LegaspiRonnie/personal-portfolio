@@ -1,5 +1,10 @@
 <?php
-require_once __DIR__ . '/../config/data.php';
+$data = require __DIR__ . '/../config/data.php';
+$sitePages = $data['sitePages'];
+$footerLinks = $data['footerLinks'];
+$siteContact = $data['siteContact'];
+$footerLocation = $data['footerLocation'];
+$siteMetadata = $data['siteMetadata'];
 ?>
 
 <footer class="site-footer" id="contact">

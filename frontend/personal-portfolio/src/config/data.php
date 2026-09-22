@@ -115,3 +115,18 @@ $siteAssets = [
     'unpkg_preconnect' => 'https://unpkg.com',
     'tile_preconnect' => 'https://tile.openstreetmap.org',
 ];
+
+return [
+    'pageMetadata' => $pageMetadata,
+    'indexLinks' => $indexLinks,
+    'indexApi' => $indexApi,
+    'siteMetadata' => $siteMetadata,
+    'siteLinks' => $siteLinks,
+    'siteContact' => $siteContact,
+    'projectLinks' => $projectLinks,
+    'bookingLinks' => $bookingLinks,
+    'footerLinks' => $footerLinks,
+    'footerLocation' => $footerLocation,
+    'sitePages' => $sitePages,
+    'siteAssets' => $siteAssets,
+];

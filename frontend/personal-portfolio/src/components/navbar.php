@@ -1,5 +1,6 @@
 <?php
-require_once __DIR__ . '/../config/data.php';
+$data = require __DIR__ . '/../config/data.php';
+$sitePages = $data['sitePages'];
 
 $currentPage = basename(parse_url($_SERVER['PHP_SELF'] ?? '', PHP_URL_PATH));
 

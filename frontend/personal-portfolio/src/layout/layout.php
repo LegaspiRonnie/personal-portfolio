@@ -1,5 +1,9 @@
 <?php
-require_once __DIR__ . '/../config/data.php';
+$data = require __DIR__ . '/../config/data.php';
+$siteMetadata = $data['siteMetadata'];
+$siteAssets = $data['siteAssets'];
+$siteContact = $data['siteContact'];
+$siteLinks = $data['siteLinks'];
 
 $pageTitle = $pageTitle ?? 'Ronnie Legaspi | Backend Developer';
 $pageDescription = $pageDescription ?? 'Ronnie Legaspi is a backend-focused full-stack web developer specializing in Laravel, PHP, REST APIs, React, security, and reliable digital systems.';
@@ -44,17 +48,17 @@ Dotenv\Dotenv::createImmutable(dirname(__DIR__, 3))->safeLoad();
 
     <script type="application/ld+json">
         <?php echo json_encode([
-        '@context' => 'https://schema.org',
-        '@type' => 'Person',
-        'name' => 'Ronnie Hortizuela Legaspi',
-        'jobTitle' => 'Backend Developer',
-        'description' => $pageDescription,
-        'url' => $siteUrl,
-        'email' => $siteContact['email'],
-        'telephone' => $siteContact['phone'],
-        'sameAs' => [$siteLinks['github_profile'], $siteLinks['linkedin_profile']],
-        'knowsAbout' => ['PHP', 'Laravel', 'REST APIs', 'React', 'Node.js', 'MySQL', 'PostgreSQL'],
-    ], JSON_HEX_TAG | JSON_HEX_AMP | JSON_HEX_APOS | JSON_HEX_QUOT); ?>
+            '@context' => 'https://schema.org',
+            '@type' => 'Person',
+            'name' => 'Ronnie Hortizuela Legaspi',
+            'jobTitle' => 'Backend Developer',
+            'description' => $pageDescription,
+            'url' => $siteUrl,
+            'email' => $siteContact['email'],
+            'telephone' => $siteContact['phone'],
+            'sameAs' => [$siteLinks['github_profile'], $siteLinks['linkedin_profile']],
+            'knowsAbout' => ['PHP', 'Laravel', 'REST APIs', 'React', 'Node.js', 'MySQL', 'PostgreSQL'],
+        ], JSON_HEX_TAG | JSON_HEX_AMP | JSON_HEX_APOS | JSON_HEX_QUOT); ?>
     </script>
 
     <link 
