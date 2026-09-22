@@ -1,12 +1,9 @@
 <?php
-$hyperLinks = [
-    'github_profile' => 'https://github.com/LegaspiRonnie',
-    'linkedin_profile' => 'https://www.linkedin.com/in/legaspi-ronnie-h-385690347/',
-];
+require_once __DIR__ . '/../config/data.php';
 
 $pageTitle = $pageTitle ?? 'Ronnie Legaspi | Backend Developer';
 $pageDescription = $pageDescription ?? 'Ronnie Legaspi is a backend-focused full-stack web developer specializing in Laravel, PHP, REST APIs, React, security, and reliable digital systems.';
-$siteUrl = rtrim($_ENV['APP_URL'] ?? 'https://ronnie-legaspi-portfolio.vercel.app', '/');
+$siteUrl = rtrim($_ENV['APP_URL'] ?? $siteMetadata['site_url'], '/');
 $currentScript = basename($_SERVER['SCRIPT_NAME'] ?? 'index.php');
 $canonicalPath = $currentScript === 'index.php' ? '/' : '/' . $currentScript;
 $canonicalUrl = $siteUrl . $canonicalPath;
@@ -22,20 +19,21 @@ $canonicalUrl = $siteUrl . $canonicalPath;
 Dotenv\Dotenv::createImmutable(dirname(__DIR__, 3))->safeLoad();
 ?>
     <meta name="description" content="<?php echo htmlspecialchars($pageDescription, ENT_QUOTES, 'UTF-8'); ?>">
-    <meta name="author" content="Ronnie Hortizuela Legaspi">
+    <meta name="author" content="<?php echo htmlspecialchars($siteMetadata['author'], ENT_QUOTES, 'UTF-8'); ?>">
     <meta name="robots" content="index, follow">
     <meta name="theme-color" content="#ffffff">
     <meta name="format-detection" content="telephone=no">
     <link rel="canonical" href="<?php echo htmlspecialchars($canonicalUrl, ENT_QUOTES, 'UTF-8'); ?>">
-    <link rel="preconnect" href="https://unpkg.com">
-    <link rel="preconnect" href="https://tile.openstreetmap.org">
+    <link rel="preconnect" href="<?php echo htmlspecialchars($siteAssets['unpkg_preconnect'], ENT_QUOTES, 'UTF-8'); ?>">
+    <link rel="preconnect" href="<?php echo htmlspecialchars($siteAssets['tile_preconnect'], ENT_QUOTES, 'UTF-8'); ?>">
+    <link rel="stylesheet" href="<?php echo htmlspecialchars($siteAssets['font_awesome_css'], ENT_QUOTES, 'UTF-8'); ?>" crossorigin="anonymous" referrerpolicy="no-referrer">
 
     <meta property="og:type" content="website">
     <meta property="og:title" content="<?php echo htmlspecialchars($pageTitle, ENT_QUOTES, 'UTF-8'); ?>">
     <meta property="og:description" content="<?php echo htmlspecialchars($pageDescription, ENT_QUOTES, 'UTF-8'); ?>">
     <meta property="og:url" content="<?php echo htmlspecialchars($canonicalUrl, ENT_QUOTES, 'UTF-8'); ?>">
     <meta property="og:image" content="<?php echo htmlspecialchars($siteUrl . '/assets/images/profile.jpg', ENT_QUOTES, 'UTF-8'); ?>">
-    <meta property="og:site_name" content="Ronnie Legaspi Portfolio">
+    <meta property="og:site_name" content="<?php echo htmlspecialchars($siteMetadata['site_name'], ENT_QUOTES, 'UTF-8'); ?>">
 
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="<?php echo htmlspecialchars($pageTitle, ENT_QUOTES, 'UTF-8'); ?>">
@@ -52,16 +50,16 @@ Dotenv\Dotenv::createImmutable(dirname(__DIR__, 3))->safeLoad();
         'jobTitle' => 'Backend Developer',
         'description' => $pageDescription,
         'url' => $siteUrl,
-        'email' => 'ronnielegaspi98@gmail.com',
-        'telephone' => '+639930954435',
-        'sameAs' => [$hyperLinks['github_profile'], $hyperLinks['linkedin_profile']],
+        'email' => $siteContact['email'],
+        'telephone' => $siteContact['phone'],
+        'sameAs' => [$siteLinks['github_profile'], $siteLinks['linkedin_profile']],
         'knowsAbout' => ['PHP', 'Laravel', 'REST APIs', 'React', 'Node.js', 'MySQL', 'PostgreSQL'],
     ], JSON_HEX_TAG | JSON_HEX_AMP | JSON_HEX_APOS | JSON_HEX_QUOT); ?>
     </script>
 
     <link 
         rel="stylesheet" 
-        href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+        href="<?php echo htmlspecialchars($siteAssets['leaflet_css'], ENT_QUOTES, 'UTF-8'); ?>"
         integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
         crossorigin=""/>
             <style>
@@ -85,7 +83,7 @@ Dotenv\Dotenv::createImmutable(dirname(__DIR__, 3))->safeLoad();
                 }
 
                 @media (prefers-reduced-motion: reduce) {
-                    *, *::before, *::after {
+                    *:not(.loader__spinner), *:not(.loader__spinner)::before, *:not(.loader__spinner)::after {
                         scroll-behavior: auto !important;
                         transition-duration: 0.01ms !important;
                         animation-duration: 0.01ms !important;
@@ -110,7 +108,7 @@ Dotenv\Dotenv::createImmutable(dirname(__DIR__, 3))->safeLoad();
 
     <?php include __DIR__ . '/../components/footer.php'; ?>
     <script 
-        src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+        src="<?php echo htmlspecialchars($siteAssets['leaflet_js'], ENT_QUOTES, 'UTF-8'); ?>"
         integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
         crossorigin="">
     </script>
@@ -133,9 +131,9 @@ Dotenv\Dotenv::createImmutable(dirname(__DIR__, 3))->safeLoad();
                 doubleClickZoom: false,
             }).setView([latitude, longitude], zoom);
 
-            const tileLayer = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            const tileLayer = L.tileLayer(<?php echo json_encode($siteAssets['leaflet_tiles']); ?>, {
                 maxZoom: 19,
-                attribution: '&copy; <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noreferrer">OpenStreetMap</a>',
+                attribution: '&copy; <a href="<?php echo htmlspecialchars($siteAssets['openstreetmap_copyright'], ENT_QUOTES, 'UTF-8'); ?>" target="_blank" rel="noreferrer">OpenStreetMap</a>',
             }).addTo(map);
 
             const mapLoader = document.getElementById('footer-map-loader');

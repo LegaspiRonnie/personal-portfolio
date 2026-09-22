@@ -1,7 +1,9 @@
 <?php
 
-$pageTitle = 'Projects | Ronnie Legaspi';
-$pageDescription = 'Explore Ronnie Legaspi\'s selected projects, including a civic incident reporting system, HR workflow automation, and event attendance management platform.';
+require_once __DIR__ . '/../config/data.php';
+$pageTitle = $pageMetadata['projects']['title'];
+$pageDescription = $pageMetadata['projects']['description'];
+
 include_once __DIR__ . '/../components/icon.php';
 ob_start();
 ?>
@@ -28,6 +30,11 @@ ob_start();
                          <li>Secure authentication, authorization, and QR-based guest reporting</li>
                          <li>Audit logs and resolution tracking dashboards</li>
                      </ul>
+                     <div class="project-feature__links">
+                        <a href="<?php echo htmlspecialchars($projectLinks['sbirs'], ENT_QUOTES, 'UTF-8'); ?>" target="_blank" rel="noopener noreferrer">
+                            <?php echo portfolioIcon('briefcase', 'Open the Noter project'); ?>View project
+                        </a>
+                </div>
                  </div>
              </div>
          </article>
@@ -46,6 +53,11 @@ ob_start();
                          <li>PDF generation and email notifications</li>
                          <li>Centralized document status and history</li>
                      </ul>
+                     <div class="project-feature__links">
+                        <a href="<?php echo htmlspecialchars($projectLinks['hrflow'], ENT_QUOTES, 'UTF-8'); ?>" target="_blank" rel="noopener noreferrer">
+                            <?php echo portfolioIcon('briefcase', 'Open the Noter project'); ?>View project
+                        </a>
+                </div>
                  </div>
              </div>
          </article>
@@ -64,8 +76,61 @@ ob_start();
                          <li>Scalable backend logic for attendee analytics</li>
                          <li>Clear operational views for event monitoring</li>
                      </ul>
+                     <div class="project-feature__links">
+                        <a href="<?php echo htmlspecialchars($projectLinks['badgermint'], ENT_QUOTES, 'UTF-8'); ?>" target="_blank" rel="noopener noreferrer">
+                            <?php echo portfolioIcon('briefcase', 'Open the Noter project'); ?>View project
+                        </a>
+                </div>
                  </div>
              </div>
+         </article>
+         <article class="project-feature">
+             <div class="project-feature__meta"><span>04</span><span><?php echo portfolioIcon('note', 'Notes and organization'); ?>PHP · MySQL · JavaScript · CSS</span></div>
+             <div class="project-feature__body">
+                 <div>
+                     <p class="projects-eyebrow">Personal organization</p>
+                     <h2>Noter</h2>
+                 </div>
+                 <div>
+                     <p>A focused note-taking application for capturing ideas, organizing content, and finding important notes quickly.</p>
+                     <ul>
+                         <li>Create and edit notes with titles, descriptions, and links</li>
+                         <li>Group notes by category and filter them when needed</li>
+                         <li>Manage notes through a clear, responsive interface</li>
+                     </ul>
+                     <div class="project-feature__links">
+                        <a href="<?php echo htmlspecialchars($projectLinks['noter'], ENT_QUOTES, 'UTF-8'); ?>" target="_blank" rel="noopener noreferrer">
+                            <?php echo portfolioIcon('briefcase', 'Open the Noter project'); ?>View project
+                        </a>
+                </div>
+                 </div>
+                 
+             </div>
+             
+         </article>
+         <article class="project-feature">
+             <div class="project-feature__meta"><span>04</span><span><?php echo portfolioIcon('note', 'Notes and organization'); ?>PHP · MySQL · JavaScript · CSS</span></div>
+             <div class="project-feature__body">
+                 <div>
+                     <p class="projects-eyebrow">Personal organization</p>
+                     <h2>Api-Hub</h2>
+                 </div>
+                 <div>
+                     <p>A focused note-taking application for capturing ideas, organizing content, and finding important notes quickly.</p>
+                     <ul>
+                         <li>Create and edit notes with titles, descriptions, and links</li>
+                         <li>Group notes by category and filter them when needed</li>
+                         <li>Manage notes through a clear, responsive interface</li>
+                     </ul>
+                     <div class="project-feature__links">
+                        <a href="<?php echo htmlspecialchars($projectLinks['api_hub'], ENT_QUOTES, 'UTF-8'); ?>" target="_blank" rel="noopener noreferrer">
+                            <?php echo portfolioIcon('briefcase', 'Open the Noter project'); ?>View project
+                        </a>
+                </div>
+                 </div>
+                 
+             </div>
+             
          </article>
      </section>
 </div>
@@ -86,6 +151,8 @@ ob_start();
      .project-feature ul { display: grid; gap: 0.65rem; margin: 1.4rem 0 0; padding: 0; list-style: none; }
      .project-feature li { padding-left: 1.2rem; color: #111827; line-height: 1.5; position: relative; }
      .project-feature li::before { content: ''; position: absolute; left: 0; top: 0.65em; width: 5px; height: 5px; border-radius: 50%; background: #2563eb; }
+    .project-feature__links { margin-top: 1.5rem; }
+    .project-feature__links a { display: inline-flex; align-items: center; gap: 0.35rem; padding: 0.7rem 1rem; border-radius: 999px; background: #eff6ff; color: #1d4ed8; font-weight: 700; text-decoration: none; }
      @media (max-width: 700px) {
          .projects-page { padding-top: 3rem; }
          .project-feature__meta, .project-feature__body { display: block; }

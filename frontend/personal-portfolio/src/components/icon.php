@@ -12,6 +12,8 @@ if (!function_exists('portfolioIcon')) {
             'briefcase' => '<rect x="3" y="7" width="18" height="13" rx="2" /><path d="M8 7V5a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2m-13 5h18" />',
             'mail' => '<path d="M3 5h18v14H3zM3 6l9 7 9-7" />',
             'phone' => '<path d="M6 3h4l2 5-2.5 1.5a15 15 0 0 0 5 5L16 12l5 2v4c0 1.1-.9 2-2 2C10.7 20 4 13.3 4 5c0-1.1.9-2 2-2z" />',
+            'play' => '<path d="m8 5 11 7-11 7V5z" />',
+            'note' => '<path d="M5 4h14v16H5zM8 8h8M8 12h8M8 16h5" />',
         ];
 
         $path = $paths[$name] ?? $paths['code'];

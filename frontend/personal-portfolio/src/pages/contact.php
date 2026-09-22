@@ -1,6 +1,7 @@
 <?php
-$pageTitle = 'Contact | Ronnie Legaspi';
-$pageDescription = 'Contact Ronnie Legaspi about backend development, Laravel and React applications, API integrations, software engineering, and technical consulting.';
+require_once __DIR__ . '/../config/data.php';
+$pageTitle = $pageMetadata['contact']['title'];
+$pageDescription = $pageMetadata['contact']['description'];
 ob_start();
 ?>
 
@@ -42,23 +43,23 @@ ob_start();
 
         <aside class="contact-details">
             <p class="contact-eyebrow">Direct contact</p>
-            <a href="mailto:ronnielegaspi98@gmail.com">
+            <a href="mailto:<?php echo htmlspecialchars($siteContact['email'], ENT_QUOTES, 'UTF-8'); ?>">
                 <span class="content-icon" title="Email" aria-hidden="true">
                     <svg viewBox="0 0 24 24" focusable="false"><path d="M3 5h18v14H3zM3 6l9 7 9-7" /></svg>
                 </span>
-                ronnielegaspi98@gmail.com
+                <?php echo htmlspecialchars($siteContact['email'], ENT_QUOTES, 'UTF-8'); ?>
             </a>
-            <a href="tel:+639930954435">
+            <a href="tel:<?php echo htmlspecialchars($siteContact['phone'], ENT_QUOTES, 'UTF-8'); ?>">
                 <span class="content-icon" title="Phone" aria-hidden="true">
                     <svg viewBox="0 0 24 24" focusable="false"><path d="M6 3h4l2 5-2.5 1.5a15 15 0 0 0 5 5L16 12l5 2v4c0 1.1-.9 2-2 2C10.7 20 4 13.3 4 5c0-1.1.9-2 2-2z" /></svg>
                 </span>
-                +63 993 095 4435
+                <?php echo htmlspecialchars($siteContact['phone'], ENT_QUOTES, 'UTF-8'); ?>
             </a>
             <span>
                 <span class="content-icon" title="Location" aria-hidden="true">
                     <svg viewBox="0 0 24 24" focusable="false"><path d="M12 21s7-6.2 7-12a7 7 0 1 0-14 0c0 5.8 7 12 7 12zM12 11a2 2 0 1 0 0-4 2 2 0 0 0 0 4z" /></svg>
                 </span>
-                Villegas Poruk 1-a, Pozorrubio, Pangasinan
+                <?php echo htmlspecialchars($siteContact['location'], ENT_QUOTES, 'UTF-8'); ?>
             </span>
             <p>Best for web development, backend systems, API integrations, and technical consulting.</p>
         </aside>
@@ -97,7 +98,7 @@ ob_start();
         const formData = new FormData(this);
         const subject = encodeURIComponent(formData.get('subject'));
         const body = encodeURIComponent(`Name: ${formData.get('name')}\nEmail: ${formData.get('email')}\n\n${formData.get('message')}`);
-        window.location.href = `mailto:ronnielegaspi98@gmail.com?subject=${subject}&body=${body}`;
+        window.location.href = `mailto:<?php echo htmlspecialchars($siteContact['email'], ENT_QUOTES, 'UTF-8'); ?>?subject=${subject}&body=${body}`;
     });
 </script>
 

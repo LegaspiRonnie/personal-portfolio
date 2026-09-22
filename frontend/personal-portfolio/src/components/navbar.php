@@ -1,4 +1,6 @@
 <?php
+require_once __DIR__ . '/../config/data.php';
+
 $currentPage = basename(parse_url($_SERVER['PHP_SELF'] ?? '', PHP_URL_PATH));
 
 function navbarLinkState(string $page, string $currentPage): string
@@ -235,7 +237,7 @@ function navbarLinkState(string $page, string $currentPage): string
 
 <header class="navbar" role="banner" id="siteNavbar">
     <div class="navbar__container">
-        <a href="index.php" class="navbar__brand" aria-label="Ronnie Legaspi home">Ronnie-Legaspi</a>
+        <a href="<?php echo htmlspecialchars($sitePages['home'], ENT_QUOTES, 'UTF-8'); ?>" class="navbar__brand" aria-label="Ronnie Legaspi home">Ronnie-Legaspi</a>
 
         <button class="navbar__toggle"
             id="navbarToggle"
@@ -250,12 +252,12 @@ function navbarLinkState(string $page, string $currentPage): string
 
         <nav id="navbarMenu" class="navbar__menu" role="navigation" aria-labelledby="navbarToggle">
             <ul class="navbar__list">
-                <li class="navbar__item"><a href="index.php" class="navbar__link<?php echo navbarLinkState('index.php', $currentPage); ?>"<?php echo $currentPage === 'index.php' ? ' aria-current="page"' : ''; ?>>Home</a></li>
-                <li class="navbar__item"><a href="profile.php" class="navbar__link<?php echo navbarLinkState('profile.php', $currentPage); ?>"<?php echo $currentPage === 'profile.php' ? ' aria-current="page"' : ''; ?>>Profile</a></li>
-                <li class="navbar__item"><a href="projects.php" class="navbar__link<?php echo navbarLinkState('projects.php', $currentPage); ?>"<?php echo $currentPage === 'projects.php' ? ' aria-current="page"' : ''; ?>>Projects</a></li>
-                <li class="navbar__item"><a href="contact.php" class="navbar__link<?php echo navbarLinkState('contact.php', $currentPage); ?>"<?php echo $currentPage === 'contact.php' ? ' aria-current="page"' : ''; ?>>Contact Me</a></li>
+                <li class="navbar__item"><a href="<?php echo htmlspecialchars($sitePages['home'], ENT_QUOTES, 'UTF-8'); ?>" class="navbar__link<?php echo navbarLinkState($sitePages['home'], $currentPage); ?>"<?php echo $currentPage === $sitePages['home'] ? ' aria-current="page"' : ''; ?>>Home</a></li>
+                <li class="navbar__item"><a href="<?php echo htmlspecialchars($sitePages['profile'], ENT_QUOTES, 'UTF-8'); ?>" class="navbar__link<?php echo navbarLinkState($sitePages['profile'], $currentPage); ?>"<?php echo $currentPage === $sitePages['profile'] ? ' aria-current="page"' : ''; ?>>Profile</a></li>
+                <li class="navbar__item"><a href="<?php echo htmlspecialchars($sitePages['projects'], ENT_QUOTES, 'UTF-8'); ?>" class="navbar__link<?php echo navbarLinkState($sitePages['projects'], $currentPage); ?>"<?php echo $currentPage === $sitePages['projects'] ? ' aria-current="page"' : ''; ?>>Projects</a></li>
+                <li class="navbar__item"><a href="<?php echo htmlspecialchars($sitePages['contact'], ENT_QUOTES, 'UTF-8'); ?>" class="navbar__link<?php echo navbarLinkState($sitePages['contact'], $currentPage); ?>"<?php echo $currentPage === $sitePages['contact'] ? ' aria-current="page"' : ''; ?>>Contact Me</a></li>
                 <li class="navbar__item">
-                    <a href="book-schedule.php" class="navbar__link navbar__link--cta<?php echo navbarLinkState('book-schedule.php', $currentPage); ?>"<?php echo $currentPage === 'book-schedule.php' ? ' aria-current="page"' : ''; ?>>Book a Schedule</a>
+                    <a href="<?php echo htmlspecialchars($sitePages['book_schedule'], ENT_QUOTES, 'UTF-8'); ?>" class="navbar__link navbar__link--cta<?php echo navbarLinkState($sitePages['book_schedule'], $currentPage); ?>"<?php echo $currentPage === $sitePages['book_schedule'] ? ' aria-current="page"' : ''; ?>>Book a Schedule</a>
                 </li>
             </ul>
         </nav>

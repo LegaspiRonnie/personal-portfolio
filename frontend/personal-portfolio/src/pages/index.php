@@ -1,12 +1,36 @@
 <?php
-$pageTitle = 'Ronnie-Legaspi';
-$pageDescription = 'Ronnie Legaspi is a backend-focused full-stack developer building secure APIs, Laravel systems, React applications, and reliable digital products.';
-$indexLinks = [
-    'github_profile' => 'https://github.com/LegaspiRonnie',
-];
+require_once __DIR__ . '/../config/data.php';
+$pageTitle = $pageMetadata['home']['title'];
+$pageDescription = $pageMetadata['home']['description'];
+
 include_once __DIR__ . '/../components/icon.php';
 ob_start();
+
+
 ?>
+
+<div class="weather-widget" id="weather-widget">
+    <div class="weather-loading" id="weather-loading">Loading weather...</div>
+    <div class="weather-content" id="weather-content" hidden>
+        <div class="weather-header">
+            <div class="weather-icon" id="weather-icon" aria-hidden="true"><i class="fa-solid fa-cloud-bolt"></i></div>
+            <div class="weather-temp-block">
+                <div class="temperature" id="weather-temperature"></div>
+                <div class="unit">°C</div>
+            </div>
+        </div>
+        <div class="weather-location-block">
+            <div class="location-main" id="weather-city"></div>
+            <div class="location-sub" id="weather-country"></div>
+            <div class="time-sub" id="weather-date"></div>
+        </div>
+        <div class="weather-details">
+            <span id="weather-precipitation"></span>
+            <span id="weather-humidity"></span>
+            <span id="weather-wind"></span>
+        </div>
+    </div>
+</div>
 
 <section class="portfolio-hero">
     <div class="portfolio-hero__content">
@@ -31,11 +55,14 @@ ob_start();
         <div class="portfolio-hero__contrib-card">
             <div class="portfolio-hero__contrib-header">
                 <span>GitHub contributions</span>
-                <a href="<?php echo htmlspecialchars($indexLinks['github_profile'], ENT_QUOTES, 'UTF-8'); ?>" class="portfolio-hero__profile-link">View profile</a>
+                <a href="<?php echo htmlspecialchars($siteLinks['github_profile'], ENT_QUOTES, 'UTF-8'); ?>" class="portfolio-hero__profile-link">View profile</a>
             </div>
             <div class="portfolio-hero__contrib-placeholder">
+                <div class="contrib-loader" id="contrib-loader">
+                    <?php include __DIR__ . '/../components/loader.php'; ?>
+                </div>
                 <img
-                    src="https://ghchart.rshah.org/LegaspiRonnie"
+                    src="<?php echo htmlspecialchars($indexLinks['github_contributions'], ENT_QUOTES, 'UTF-8'); ?>"
                     alt="GitHub contribution activity for Ronnie Legaspi"
                     loading="lazy"
                     class="portfolio-hero__contrib-image">
@@ -67,6 +94,70 @@ ob_start();
             <span class="portfolio-card__tag">Data</span>
             <h3><?php echo portfolioIcon('database', 'Database foundations'); ?>Strong Foundations</h3>
             <p>MySQL, PostgreSQL, schema design, and query optimization that keep applications dependable.</p>
+        </article>
+    </div>
+</section>
+<section class="portfolio-section portfolio-video-section">
+    <div class="portfolio-video" data-video-autoplay>
+        <div class="video-loader" id="video-loader">
+            <?php include __DIR__ . '/../components/loader.php'; ?>
+        </div>
+        <iframe
+            src="<?php echo htmlspecialchars($indexLinks['jobdocs_video_embed'], ENT_QUOTES, 'UTF-8'); ?>"
+            title="JobDocs Roadmap video"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+            referrerpolicy="strict-origin-when-cross-origin"
+            allowfullscreen>
+        </iframe>
+    </div>
+</section>
+
+<section class="portfolio-section portfolio-section--jobdocs">
+    <div class="portfolio-section__heading">
+        <p class="portfolio-section__eyebrow">Featured project</p>
+        <h2>JobDocs Roadmap makes employment preparation easier to follow.</h2>
+    </div>
+
+    <div class="jobdocs-intro">
+        <p>
+            JobDocs Roadmap is a lightweight guide for first-time job seekers, recent graduates, and students in the
+            Philippines. It explains which documents to prepare, where to get them, and how to work through the process
+            without the usual uncertainty.
+        </p>
+        <p>
+            Built with HTML, Tailwind CSS, and React.js via CDN, the app turns a confusing checklist into a practical,
+            step-by-step path toward becoming employment ready.
+        </p>
+    </div>
+    <div class="jobdocs-links">
+        <a class="jobdocs-link jobdocs-link--primary" href="<?php echo htmlspecialchars($indexLinks['jobdocs_roadmap'], ENT_QUOTES, 'UTF-8'); ?>" target="_blank" rel="noopener noreferrer">
+            <?php echo portfolioIcon('briefcase', 'Open the JobDocs Roadmap project'); ?>View the project
+        </a>
+        <a class="jobdocs-link jobdocs-link--secondary" href="<?php echo htmlspecialchars($indexLinks['jobdocs_roadmap_video'], ENT_QUOTES, 'UTF-8'); ?>" target="_blank" rel="noopener noreferrer">
+            <?php echo portfolioIcon('play', 'Watch the JobDocs Roadmap video'); ?>Watch on YouTube
+        </a>
+    </div>
+
+    <div class="jobdocs-documents">
+        <article class="jobdocs-document">
+            <strong>NBI Clearance</strong>
+            <span>Verifies an applicant's national criminal record</span>
+            <small>National Bureau of Investigation</small>
+        </article>
+        <article class="jobdocs-document">
+            <strong>Police Clearance</strong>
+            <span>Confirms there are no local police records or cases</span>
+            <small>Local police departments</small>
+        </article>
+        <article class="jobdocs-document">
+            <strong>PSA Birth Certificate</strong>
+            <span>Provides proof of identity and citizenship</span>
+            <small>Philippine Statistics Authority</small>
+        </article>
+        <article class="jobdocs-document">
+            <strong>SSS, PhilHealth &amp; Pag-IBIG</strong>
+            <span>Organizes essential government benefit registrations</span>
+            <small>Government service agencies</small>
         </article>
     </div>
 </section>
@@ -106,7 +197,7 @@ ob_start();
         grid-template-columns: 1fr 1.15fr;
         gap: 2.2rem;
         align-items: center;
-        padding: 2rem 0 3rem;
+        padding: 0.5rem 0 3rem;
     }
 
     .portfolio-hero__content {
@@ -115,6 +206,105 @@ ob_start();
         display: flex;
         flex-direction: column;
         justify-content: center;
+    }
+
+    .weather-widget[hidden],
+    .weather-content[hidden] {
+        display: none;
+    }
+
+    .weather-widget {
+        width: min(1180px, calc(100% - 2rem));
+        min-height: 0;
+        margin: 0 auto;
+        padding: 0.35rem 0;
+        color: #64748b;
+        display: flex;
+        justify-content: flex-start;
+    }
+
+    .weather-loading {
+        display: flex;
+        align-items: center;
+        color: #64748b;
+        font-size: 0.78rem;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+    }
+
+    .weather-content {
+        display: grid;
+        grid-template-columns: minmax(100px, 0.8fr) minmax(130px, 1fr) minmax(180px, 1.4fr);
+        grid-template-rows: repeat(2, minmax(1.5rem, auto));
+        align-items: center;
+        column-gap: 1.5rem;
+        row-gap: 0.15rem;
+        width: 100%;
+    }
+
+    .weather-header {
+        display: flex;
+        align-items: center;
+        gap: 0.8rem;
+        grid-column: 1;
+        grid-row: 1 / span 2;
+    }
+
+    .weather-icon {
+        color: #f59e0b;
+        font-size: 2rem;
+        line-height: 1;
+    }
+
+    .weather-temp-block {
+        display: flex;
+        align-items: flex-start;
+        color: #111827;
+    }
+
+    .temperature {
+        font-size: 2rem;
+        font-weight: 800;
+        line-height: 1;
+    }
+
+    .unit {
+        margin-left: 0.2rem;
+        font-size: 0.8rem;
+        font-weight: 700;
+    }
+
+    .weather-location-block {
+        min-width: 130px;
+        grid-column: 2;
+        grid-row: 1 / span 2;
+    }
+
+    .location-main {
+        color: #111827;
+        font-weight: 700;
+    }
+
+    .location-sub,
+    .time-sub,
+    .weather-summary,
+    .weather-details {
+        color: #64748b;
+        font-size: 0.78rem;
+    }
+
+    .weather-details {
+        margin-top: 5px;
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, max-content));
+        gap: 0.2rem 0.8rem;
+        /* margin-top: 0; */
+        margin-left: 0;
+        color: #64748b;
+        font-size: 0.7rem;
+        line-height: 1.35;
+        grid-column: 3;
+        grid-row: 1;
     }
 
     .portfolio-hero__eyebrow,
@@ -265,6 +455,29 @@ ob_start();
         border: 1px solid #e5e7eb;
     }
 
+    .contrib-loader {
+        position: absolute;
+        inset: 0;
+        z-index: 1;
+        opacity: 1;
+        visibility: visible;
+        transition: opacity 0.2s ease, visibility 0.2s ease;
+    }
+
+    .contrib-loader.is-hidden {
+        opacity: 0;
+        visibility: hidden;
+        pointer-events: none;
+    }
+
+    .contrib-loader .loader {
+        height: 100%;
+        min-height: 0;
+        box-sizing: border-box;
+        border-radius: 0;
+        background: #f8fafc;
+    }
+
     .portfolio-hero__contrib-image {
         display: block;
         width: 100%;
@@ -277,6 +490,49 @@ ob_start();
         width: min(1180px, calc(100% - 2rem));
         margin: 0 auto;
         padding: 2rem 0 4rem;
+    }
+
+    .portfolio-video-section {
+        padding-top: 0;
+    }
+
+    .portfolio-video {
+        position: relative;
+        width: 100%;
+        aspect-ratio: 16 / 9;
+        overflow: hidden;
+        border-radius: 20px;
+        background: #0f172a;
+        box-shadow: 0 18px 36px rgba(15, 23, 42, 0.12);
+    }
+
+    .video-loader {
+        position: absolute;
+        inset: 0;
+        z-index: 1;
+        opacity: 1;
+        visibility: visible;
+        transition: opacity 0.2s ease, visibility 0.2s ease;
+    }
+
+    .video-loader.is-hidden {
+        opacity: 0;
+        visibility: hidden;
+        pointer-events: none;
+    }
+
+    .video-loader .loader {
+        height: 100%;
+        min-height: 0;
+        box-sizing: border-box;
+        border-radius: 0;
+    }
+
+    .portfolio-video iframe {
+        display: block;
+        width: 100%;
+        height: 100%;
+        border: 0;
     }
 
     .portfolio-section__heading {
@@ -296,6 +552,86 @@ ob_start();
         display: grid;
         grid-template-columns: repeat(3, minmax(0, 1fr));
         gap: 1.25rem;
+    }
+
+    .portfolio-section--jobdocs {
+        padding-top: 0;
+    }
+
+    .jobdocs-intro {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 2rem;
+        max-width: 980px;
+        margin-bottom: 1.5rem;
+    }
+
+    .jobdocs-intro p {
+        margin: 0;
+        color: #5b6472;
+        line-height: 1.75;
+    }
+
+    .jobdocs-links {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.75rem;
+        margin-bottom: 1.5rem;
+    }
+
+    .jobdocs-link {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        padding: 0.75rem 1rem;
+        border-radius: 999px;
+        font-size: 0.86rem;
+        font-weight: 700;
+        text-decoration: none;
+    }
+
+    .jobdocs-link--primary {
+        background: #2563eb;
+        color: #ffffff;
+    }
+
+    .jobdocs-link--secondary {
+        background: #eff6ff;
+        color: #1d4ed8;
+    }
+
+    .jobdocs-documents {
+        display: grid;
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+        gap: 1rem;
+    }
+
+    .jobdocs-document {
+        display: flex;
+        flex-direction: column;
+        gap: 0.55rem;
+        min-height: 170px;
+        padding: 1.2rem;
+        border-top: 3px solid #2563eb;
+        background: #f8fafc;
+    }
+
+    .jobdocs-document strong {
+        color: #111827;
+        font-size: 1.05rem;
+    }
+
+    .jobdocs-document span,
+    .jobdocs-document small {
+        color: #5b6472;
+        line-height: 1.55;
+    }
+
+    .jobdocs-document small {
+        margin-top: auto;
+        color: #2563eb;
+        font-size: 0.76rem;
+        font-weight: 700;
     }
 
     .portfolio-card {
@@ -364,9 +700,36 @@ ob_start();
     }
 
     @media (max-width: 860px) {
+        .weather-content {
+            grid-template-columns: minmax(90px, 0.8fr) minmax(120px, 1fr);
+            grid-template-rows: auto auto auto;
+            gap: 0.65rem 1rem;
+        }
+
+        .weather-location-block {
+            min-width: 0;
+        }
+
+        .weather-header {
+            grid-column: 1;
+            grid-row: 1 / span 2;
+        }
+
+        .weather-location-block {
+            grid-column: 2;
+            grid-row: 1 / span 2;
+        }
+
+        .weather-details {
+            grid-column: 1 / -1;
+            grid-row: 3;
+        }
+
         .portfolio-hero,
         .portfolio-section--split,
-        .portfolio-grid {
+        .portfolio-grid,
+        .jobdocs-intro,
+        .jobdocs-documents {
             grid-template-columns: 1fr;
         }
 
@@ -382,8 +745,108 @@ ob_start();
         .portfolio-hero__panel {
             grid-template-columns: 1fr;
         }
+
+        .jobdocs-document {
+            min-height: auto;
+        }
     }
 </style>
+
+<script>
+    (function () {
+        const weatherWidget = document.getElementById('weather-widget');
+        const weatherLoading = document.getElementById('weather-loading');
+        const weatherContent = document.getElementById('weather-content');
+
+        const loadWeather = async () => {
+            if (!weatherWidget) return;
+
+            try {
+                const response = await fetch(<?php echo json_encode($indexApi['weather']['url'] . '?city=' . rawurlencode($indexApi['weather']['city']), JSON_HEX_TAG | JSON_HEX_AMP | JSON_HEX_APOS | JSON_HEX_QUOT); ?>, {
+                    headers: { Accept: 'application/json' },
+                });
+                const payload = await response.json();
+
+                if (!response.ok || payload.success !== true || !payload.data || !payload.weather) {
+                    weatherWidget.hidden = true;
+                    return;
+                }
+
+                const weather = payload.weather;
+                document.getElementById('weather-temperature').textContent = Math.round(Number(weather.temperature));
+                document.getElementById('weather-city').textContent = payload.data.city || 'Manila';
+                document.getElementById('weather-country').textContent = payload.data.country || 'Philippines';
+                document.getElementById('weather-date').textContent = new Intl.DateTimeFormat('en-US', {
+                    month: 'short',
+                    day: 'numeric',
+                    hour: 'numeric',
+                    minute: '2-digit',
+                    hour12: true,
+                    timeZone: 'Asia/Manila',
+                }).format(new Date());
+                document.getElementById('weather-icon').innerHTML = '<i class="fa-solid fa-cloud-bolt"></i>';
+                document.getElementById('weather-humidity').textContent = `Humidity: ${weather.humidity}%`;
+                document.getElementById('weather-precipitation').textContent = `Precipitation: ${Math.max(0, Math.min(100, Number(weather.humidity)))}%`;
+                document.getElementById('weather-wind').textContent = `Wind ${weather.wind_speed} km/h`;
+                weatherLoading.hidden = true;
+                weatherLoading.style.display = 'none';
+                weatherContent.hidden = false;
+                weatherContent.style.display = 'flex';
+            } catch (error) {
+                weatherWidget.hidden = true;
+            }
+        };
+
+        loadWeather();
+
+        const contributionImage = document.querySelector('.portfolio-hero__contrib-image');
+        const contributionLoader = document.getElementById('contrib-loader');
+
+        const hideContributionLoader = () => {
+            if (contributionLoader) contributionLoader.classList.add('is-hidden');
+        };
+
+        if (contributionImage) {
+            contributionImage.addEventListener('load', hideContributionLoader, { once: true });
+            contributionImage.addEventListener('error', hideContributionLoader, { once: true });
+
+            if (contributionImage.complete) hideContributionLoader();
+        }
+
+        const video = document.querySelector('[data-video-autoplay]');
+
+        if (!video) return;
+
+        const iframe = video.querySelector('iframe');
+        const loader = document.getElementById('video-loader');
+        let playerReady = false;
+
+        const hideLoader = () => {
+            if (loader) loader.classList.add('is-hidden');
+        };
+
+        const sendCommand = (command) => {
+            if (!playerReady || !iframe.contentWindow) return;
+
+            iframe.contentWindow.postMessage(JSON.stringify({
+                event: 'command',
+                func: command,
+                args: [],
+            }), <?php echo json_encode($indexApi['youtube_origin'], JSON_HEX_TAG | JSON_HEX_AMP | JSON_HEX_APOS | JSON_HEX_QUOT); ?>);
+        };
+
+        iframe.addEventListener('load', () => {
+            playerReady = true;
+            hideLoader();
+        });
+
+        const observer = new IntersectionObserver(([entry]) => {
+            sendCommand(entry.isIntersecting ? 'playVideo' : 'pauseVideo');
+        }, { threshold: 0.45 });
+
+        observer.observe(video);
+    }());
+</script>
 
 <?php
 $content = ob_get_clean();

@@ -1,26 +1,12 @@
 <?php
-$footerLinks = [
-
-    'github' => 'https://github.com/LegaspiRonnie',
-    'linkedin' => 'https://www.linkedin.com/in/legaspi-ronnie-h-385690347/',
-    'instagram' => 'https://www.facebook.com/ronniehortizuela.legaspi',
-    'facebook' => 'https://www.facebook.com/ron_aint_simp.23/',
-    'youtube' => 'https://www.youtube.com/@ronnielegaspi4731',
-];
-
-$location = [
-    'label' => "Villegas Poruk 1-a, Pozorrubio, Pangasinan",
-    'long' => 120.558655,
-    'lat' => 16.127258,
-    'zoom' => 12,
-];
+require_once __DIR__ . '/../config/data.php';
 ?>
 
 <footer class="site-footer" id="contact">
     <div class="site-footer__container">
         <div class="site-footer__top-row">
             <div class="site-footer__brand-block">
-                <a href="index.php" class="site-footer__brand">Ronnie-Legaspi</a>
+                <a href="<?php echo htmlspecialchars($sitePages['home'], ENT_QUOTES, 'UTF-8'); ?>" class="site-footer__brand">Ronnie-Legaspi</a>
                 <p>
                     Building practical, modern digital experiences with clean design, solid systems,
                     and a focus on user value.
@@ -31,11 +17,11 @@ $location = [
                 <div class="site-footer__group">
                     <h3>Explore</h3>
                     <ul>
-                        <li><a href="index.php">Home</a></li>
-                        <li><a href="profile.php">Profile</a></li>
-                        <li><a href="projects.php">Projects</a></li>
-                        <li><a href="contact.php">Contact</a></li>
-                        <li><a href="book-schedule.php">Book a Call</a></li>
+                        <li><a href="<?php echo htmlspecialchars($sitePages['home'], ENT_QUOTES, 'UTF-8'); ?>">Home</a></li>
+                        <li><a href="<?php echo htmlspecialchars($sitePages['profile'], ENT_QUOTES, 'UTF-8'); ?>">Profile</a></li>
+                        <li><a href="<?php echo htmlspecialchars($sitePages['projects'], ENT_QUOTES, 'UTF-8'); ?>">Projects</a></li>
+                        <li><a href="<?php echo htmlspecialchars($sitePages['contact'], ENT_QUOTES, 'UTF-8'); ?>">Contact</a></li>
+                        <li><a href="<?php echo htmlspecialchars($sitePages['book_schedule'], ENT_QUOTES, 'UTF-8'); ?>">Book a Call</a></li>
                     </ul>
                 </div>
 
@@ -59,10 +45,10 @@ $location = [
                 <p>Have an opportunity, a project, or just want to connect? Send a message and I'll get back to you.</p>
 
                 <div class="site-footer__contact-list">
-                    <a href="mailto:ronnielegaspi98@gmail.com">ronnielegaspi98@gmail.com</a>
-                    <a href="tel:+639930954435">+639930954435</a>
-                    <span><?php echo htmlspecialchars($location['label'], ENT_QUOTES, 'UTF-8'); ?></span>
-                    <a href="index.php">ronnie-legaspi-portfolio.vercel.app</a>
+                    <a href="mailto:<?php echo htmlspecialchars($siteContact['email'], ENT_QUOTES, 'UTF-8'); ?>"><?php echo htmlspecialchars($siteContact['email'], ENT_QUOTES, 'UTF-8'); ?></a>
+                    <a href="tel:<?php echo htmlspecialchars($siteContact['phone'], ENT_QUOTES, 'UTF-8'); ?>"><?php echo htmlspecialchars($siteContact['phone'], ENT_QUOTES, 'UTF-8'); ?></a>
+                    <span><?php echo htmlspecialchars($footerLocation['label'], ENT_QUOTES, 'UTF-8'); ?></span>
+                    <a href="<?php echo htmlspecialchars($sitePages['home'], ENT_QUOTES, 'UTF-8'); ?>"><?php echo htmlspecialchars(parse_url($siteMetadata['site_url'], PHP_URL_HOST) ?: $siteMetadata['site_url'], ENT_QUOTES, 'UTF-8'); ?></a>
                 </div>
             </div>
 
@@ -70,10 +56,10 @@ $location = [
                 <div
                     id="footer-map"
                     class="leaflet-map"
-                    data-lat="<?php echo htmlspecialchars((string) $location['lat'], ENT_QUOTES, 'UTF-8'); ?>"
-                    data-long="<?php echo htmlspecialchars((string) $location['long'], ENT_QUOTES, 'UTF-8'); ?>"
-                    data-zoom="<?php echo htmlspecialchars((string) $location['zoom'], ENT_QUOTES, 'UTF-8'); ?>"
-                    data-icon="../../assets/images/loc-icon.png"
+                    data-lat="<?php echo htmlspecialchars((string) $footerLocation['lat'], ENT_QUOTES, 'UTF-8'); ?>"
+                    data-long="<?php echo htmlspecialchars((string) $footerLocation['long'], ENT_QUOTES, 'UTF-8'); ?>"
+                    data-zoom="<?php echo htmlspecialchars((string) $footerLocation['zoom'], ENT_QUOTES, 'UTF-8'); ?>"
+                    data-icon="<?php echo htmlspecialchars($footerLocation['icon'], ENT_QUOTES, 'UTF-8'); ?>"
                     aria-label="Map showing Ronnie Legaspi's location">
                     <div class="site-footer__map-loader" id="footer-map-loader">
                         <?php include __DIR__ . '/loader.php'; ?>

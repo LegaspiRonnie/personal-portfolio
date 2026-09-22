@@ -9,6 +9,7 @@
     },
     "scripts": {
         "lint": "vendor/bin/php-cs-fixer fix",
-        "analyze": "vendor/bin/phpstan analyze"
+        "analyze": "vendor/bin/phpstan analyze",
+        "cache:pretty": "@php scripts/pretty-cache.php"
     }
 }

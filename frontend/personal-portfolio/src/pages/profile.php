@@ -1,10 +1,10 @@
 <?php
-// 1. Set the browser title for the portfolio homepage.
-$pageTitle = 'Profile | Ronnie Legaspi';
-$pageDescription = 'Learn about Ronnie Legaspi, a full-stack web developer and IT graduate experienced with Laravel, PHP, React, REST APIs, databases, and secure systems.';
+require_once __DIR__ . '/../config/data.php';
+// Profile Page Metadata
+$pageTitle = $pageMetadata['profile']['title'];
+$pageDescription = $pageMetadata['profile']['description'];
 include_once __DIR__ . '/../components/icon.php';
 
-// 2. Start buffering the HTML output
 ob_start();
 ?>
 
@@ -22,8 +22,8 @@ ob_start();
 		 <div class="profile-contact">
 			 <span>Currently open to</span>
 			 <strong>Web Development · Software Engineering · IT Support</strong>
-			 <a href="mailto:ronnielegaspi98@gmail.com">ronnielegaspi98@gmail.com</a>
-			 <a href="tel:+639930954435">+63 993 095 4435</a>
+				 <a href="mailto:<?php echo htmlspecialchars($siteContact['email'], ENT_QUOTES, 'UTF-8'); ?>"><?php echo htmlspecialchars($siteContact['email'], ENT_QUOTES, 'UTF-8'); ?></a>
+				 <a href="tel:<?php echo htmlspecialchars($siteContact['phone'], ENT_QUOTES, 'UTF-8'); ?>"><?php echo htmlspecialchars($siteContact['phone'], ENT_QUOTES, 'UTF-8'); ?></a>
 		 </div>
 	 </section>
  

@@ -1,10 +1,10 @@
 <?php
-// 1. Set the browser title for the portfolio homepage.
-$pageTitle = 'Book a Schedule | Ronnie Legaspi';
-$pageDescription = 'View Ronnie Legaspi\'s availability and schedule a conversation about web development, backend systems, API integrations, or consulting.';
+require_once __DIR__ . '/../config/data.php';
+$pageTitle = $pageMetadata['book_schedule']['title'];
+$pageDescription = $pageMetadata['book_schedule']['description'];
+
 include_once __DIR__ . '/../components/icon.php';
 
-// 2. Start buffering the HTML output
 ob_start();
 ?>
 
@@ -241,25 +241,6 @@ ob_start();
         <p>Here is my current schedule. If you want to book a session, click the button below.</p>
     </div>
 
-    <!-- <div class="booking-shell__cards">
-        <article class="booking-card">
-            <span class="booking-card__tag">Consulting</span>
-            <h3><?php echo portfolioIcon('phone', 'Discovery call'); ?>Discovery Call</h3>
-            <p>30 minutes to talk through your goals, needs, and timeline.</p>
-        </article>
-
-        <article class="booking-card">
-            <span class="booking-card__tag">Development</span>
-            <h3><?php echo portfolioIcon('briefcase', 'Project planning'); ?>Project Planning</h3>
-            <p>Best for technical discussions, product planning, and roadmap reviews.</p>
-        </article>
-
-        <article class="booking-card">
-            <span class="booking-card__tag">Collaboration</span>
-            <h3><?php echo portfolioIcon('code', 'Technical session'); ?>Longer Session</h3>
-            <p>For deeper conversations, design feedback, or technical consulting.</p>
-        </article>
-    </div> -->
 
     <div class="booking-shell__panel">
         <div class="booking-shell__copy">
@@ -274,7 +255,7 @@ ob_start();
             </div>
 
             <iframe
-                src="https://calendar.google.com/calendar/embed?src=ronnielegaspi98%40gmail.com&ctz=Asia%2FManila&mode=WEEK"
+                src="<?php echo htmlspecialchars($bookingLinks['calendar_embed'], ENT_QUOTES, 'UTF-8'); ?>"
                 title="Ronnie Legaspi Calendar"
                 class="booking-shell__calendar"
                 loading="lazy"
