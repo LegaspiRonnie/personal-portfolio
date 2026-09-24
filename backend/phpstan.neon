@@ -6,5 +6,4 @@ parameters:
     paths:
         - config
         - helper
-        - personal-portfolio
-        - projects
+        - projects/rest-crud
