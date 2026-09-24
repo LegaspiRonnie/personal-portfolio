@@ -7,3 +7,4 @@ parameters:
         - config
         - helper
         - projects/rest-crud
+        - projects
