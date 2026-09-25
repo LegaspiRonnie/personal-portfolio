@@ -23,14 +23,14 @@ try {
 
     if (strtoupper($_SERVER['REQUEST_METHOD'] ?? '') !== 'GET') {
         header('Allow: GET');
-        sendJson(405, ['status' => false, 'message' => 'Method Not Allowed.']);
+        sendJson(405, ['message' => 'Method Not Allowed.']);
     }
 
     // Reject array input such as ?by[]=name instead of coercing it to a string.
     $rawSortBy = $_GET['by'] ?? null;
     $rawOrderBy = $_GET['order'] ?? 'desc';
     if (!is_string($rawSortBy) || !is_string($rawOrderBy)) {
-        sendJson(400, ['status' => false, 'message' => 'Sort and order parameters must be strings.']);
+        sendJson(400, ['message' => 'Sort and order parameters must be strings.']);
     }
 
     $sort_by = strtolower(trim($rawSortBy));
@@ -41,7 +41,6 @@ try {
     // check if sort parameter is set, it is required
     if ($sort_by === '') {
         sendJson(400, [
-            'status' => false,
             'message' => 'Sort parameter is required.',
         ]);
     }
@@ -49,7 +48,6 @@ try {
     // check if order_by is in allowed_order
     if (!in_array($order_by, $allowed_order, true)) {
         sendJson(400, [
-            'status' => false,
             'message' => 'Order value not valid',
             'valid orders' => $allowed_order,
         ]);
@@ -58,7 +56,6 @@ try {
     // check if $sort_by is in $allowed_columns
     if (!in_array($sort_by, $allowed_columns, true)) {
         sendJson(400, [
-            'status' => false,
             'message' => 'Sort value not valid',
             'valid sorts' => $allowed_columns,
         ]);
@@ -68,8 +65,6 @@ try {
     $result = $item->sort($sort_by, $order_by);
 
     sendJson(200, [
-        'status' => true,
-        'message' => $result === [] ? 'No items found.' : 'Items found.',
         'data' => $result,
         'count' => count($result),
     ]);
@@ -78,7 +73,6 @@ try {
 
 } catch (\Throwable $th) {
     sendJson(500, [
-        'status' => false,
         'message' => 'Internal Server Error.',
     ]);
 }

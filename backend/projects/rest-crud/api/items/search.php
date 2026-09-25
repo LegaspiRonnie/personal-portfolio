@@ -22,7 +22,6 @@ try {
 
     if ($method !== 'GET') {
         sendJson(405, [
-            'status' => false,
             'message' => 'Method Not Allowed.',
         ]);
     }
@@ -31,7 +30,6 @@ try {
 
     if (is_array($rawQuery)) {
         sendJson(400, [
-            'status' => false,
             'message' => 'Search query must be a string.',
         ]);
     }
@@ -40,14 +38,12 @@ try {
 
     if ($query === '') {
         sendJson(400, [
-            'status' => false,
             'message' => 'Search query is required.',
         ]);
     }
 
     if (strlen($query) > 400) {
         sendJson(400, [
-            'status' => false,
             'message' => 'Search query must not exceed 400 bytes.',
         ]);
     }
@@ -55,8 +51,6 @@ try {
     $result = $item->search($query);
 
     sendJson(200, [
-        'status' => true,
-        'message' => $result === [] ? 'No items found.' : 'Items found.',
         'data' => $result,
         'count' => count($result),
     ]);
@@ -65,7 +59,6 @@ try {
 
 } catch (\Throwable $th) {
     sendJson(500, [
-        'status' => false,
         'message' => 'Internal Server Error.',
     ]);
 }

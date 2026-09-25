@@ -56,5 +56,10 @@ class Item
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
+    public function filter(string $category, string $rarity): array
+    {
+        return [];
+    }
+
 
 }
