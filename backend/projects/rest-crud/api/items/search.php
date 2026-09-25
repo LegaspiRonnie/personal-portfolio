@@ -3,13 +3,12 @@
 declare(strict_types=1);
 
 header('Content-Type: application/json; charset=utf-8');
-header('Access-Control-Allow-Methods: GET, POST, PUT, DELETE');
+header('Access-Control-Allow-Methods: GET');
 
 // get patch initialization file
 $path = require_once '../../config/initialize.php';
 
 require_once $path['db'] . '/Database.php';
-require_once $path['model'] . '/User.php';
 require_once $path['model'] . '/Item.php';
 require_once $path['helper'] . '/helper.php';
 
@@ -46,6 +45,13 @@ try {
         ]);
     }
 
+    if (strlen($query) > 400) {
+        sendJson(400, [
+            'status' => false,
+            'message' => 'Search query must not exceed 400 bytes.',
+        ]);
+    }
+
     $result = $item->search($query);
 
     sendJson(200, [
@@ -60,6 +66,6 @@ try {
 } catch (\Throwable $th) {
     sendJson(500, [
         'status' => false,
-        'message' => $th->getMessage(),
+        'message' => 'Internal Server Error.',
     ]);
 }
