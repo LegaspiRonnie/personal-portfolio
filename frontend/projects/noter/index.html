@@ -160,6 +160,8 @@
             -webkit-box-orient: vertical;
             -webkit-line-clamp: 4;
             overflow: hidden;
+            white-space: pre-wrap;
+            overflow-wrap: anywhere;
         }
 
         .note-card a {
@@ -288,6 +290,11 @@
             font-size: 1.02rem;
             white-space: pre-wrap;
             color: #312e2b;
+        }
+
+        .pagination-ellipsis {
+            padding: 0 4px;
+            color: var(--muted);
         }
 
         @keyframes slideIn {
@@ -497,7 +504,7 @@
         }
 
         @media (max-width: 768px) {
-            .notes-grid {
+            .notes-grid-inner {
                 grid-template-columns: 1fr;
             }
         }
@@ -545,7 +552,7 @@
 
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="config.php"></script>
-    <script type="module" src="main.js?v=4"></script>
+    <script type="module" src="main.js?v=8"></script>
 </body>
 
 </html>

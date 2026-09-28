@@ -1,6 +1,7 @@
 const API_URL = (typeof window !== 'undefined' && window.APP_CONFIG && window.APP_CONFIG.API_URL)
     ? window.APP_CONFIG.API_URL
     : '../backend/api/Note.php';
+let activeListState = { search: '', page: 1, categoryId: '' };
 
 function showAlert(message, icon = 'success') {
     if (window.Swal) {
@@ -42,19 +43,45 @@ function escapeHtml(value = '') {
 }
 
 function normalizeHighlightMarkup(value = '') {
-    let html = String(value ?? '')
-        .replace(/&lt;/gi, '<')
-        .replace(/&gt;/gi, '>')
-        .replace(/&quot;/gi, '"')
-        .replace(/&#39;/gi, "'")
-        .replace(/&amp;/gi, '&');
+    const parsed = new DOMParser().parseFromString(String(value ?? ''), 'text/html');
+    const allowed = new Set(['BR', 'P', 'DIV', 'STRONG', 'B', 'EM', 'I', 'U', 'MARK', 'SPAN']);
+    const safeColors = new Set(['#fef08a', '#f9a8d4', '#86efac', '#93c5fd']);
+    const cleanChildren = (parent) => {
+        let output = '';
+        for (const node of parent.childNodes) {
+            if (node.nodeType === Node.TEXT_NODE) {
+                output += escapeHtml(node.nodeValue).replace(/\r\n?|\n/g, '<br>');
+                continue;
+            }
+            if (node.nodeType !== Node.ELEMENT_NODE) continue;
 
-    html = html.replace(/<script[\s\S]*?<\/script>/gi, '');
+            const tag = node.tagName;
+            if (tag === 'DIV' || tag === 'P') {
+                // Separate blocks at their parent level; this works for both
+                // sibling blocks and the nested blocks produced by editors.
+                if (output && !output.endsWith('<br>')) output += '<br>';
+                output += cleanChildren(node);
+                continue;
+            }
+            if (tag === 'BR') {
+                output += '<br>';
+                continue;
+            }
 
-    html = html.replace(/<\/?(script|style|iframe|object|embed|svg|math|img|video|audio|canvas|link|meta|base|form|input|button|select|textarea|option|noscript|article|aside|details|figcaption|figure|header|footer|nav|main|section)[^>]*>/gi, '');
-    html = html.replace(/<(?!\/?(mark|br|strong|b|em|i|u|p|span)\b)[^>]*>/gi, '');
-
-    return html.replace(/\n/g, '<br>');
+            const children = cleanChildren(node);
+            if (!allowed.has(tag)) {
+                output += children;
+            } else if (tag === 'MARK') {
+                const color = (node.style.backgroundColor || '').toLowerCase();
+                const normalizedColor = color === 'rgb(254, 240, 138)' ? '#fef08a' : color === 'rgb(249, 168, 212)' ? '#f9a8d4' : color === 'rgb(134, 239, 172)' ? '#86efac' : color === 'rgb(147, 197, 253)' ? '#93c5fd' : color;
+                output += `<mark${safeColors.has(normalizedColor) ? ` style="background-color:${normalizedColor}"` : ''}>${children}</mark>`;
+            } else {
+                output += `<${tag.toLowerCase()}>${children}</${tag.toLowerCase()}>`;
+            }
+        }
+        return output;
+    };
+    return cleanChildren(parsed.body).replace(/^(?:<br>)+|(?:<br>)+$/g, '');
 }
 
 function formatDescriptionForDisplay(value = '') {
@@ -188,15 +215,23 @@ function renderLoadingState(message = 'Loading notes...') {
     `;
 }
 
-export async function index(searchTerm = '', page = 1, categoryId = '') {
+export async function index(searchTerm, page, categoryId) {
     const notesGrid = document.querySelector('#notesGrid');
     const paginationContainer = document.querySelector('#paginationControls');
     const categoryFilter = document.querySelector('#categoryFilter');
 
     try {
-        const query = (searchTerm ?? '').trim();
-        const currentPage = Number(page) > 0 ? Number(page) : 1;
-        const selectedCategoryId = categoryId !== undefined && categoryId !== null ? String(categoryId) : (categoryFilter ? categoryFilter.value : '');
+        const query = (searchTerm === undefined ? activeListState.search : searchTerm ?? '').trim();
+        const requestedPage = page === undefined ? activeListState.page : page;
+        const currentPage = Number(requestedPage) > 0 ? Number(requestedPage) : 1;
+        const requestedCategory = categoryId === undefined
+            ? activeListState.categoryId
+            : categoryId;
+        const selectedCategoryId = requestedCategory !== undefined && requestedCategory !== null
+            ? String(requestedCategory)
+            : (categoryFilter ? categoryFilter.value : '');
+
+        activeListState = { search: query, page: currentPage, categoryId: selectedCategoryId };
 
         if (notesGrid) {
             notesGrid.innerHTML = renderLoadingState('Loading notes...');
@@ -304,8 +339,13 @@ export async function index(searchTerm = '', page = 1, categoryId = '') {
             const currentPageNum = Number(pagination.current_page || currentPage);
             const pages = [];
 
-            for (let pageIndex = 1; pageIndex <= totalPages; pageIndex++) {
-                pages.push(`<button type="button" class="page-btn ${pageIndex === currentPageNum ? 'active' : ''}" data-page="${pageIndex}">${pageIndex}</button>`);
+            const visiblePages = new Set([1, totalPages]);
+            for (let pageIndex = Math.max(1, currentPageNum - 1); pageIndex <= Math.min(totalPages, currentPageNum + 1); pageIndex++) visiblePages.add(pageIndex);
+            let previousPage = 0;
+            for (const pageIndex of [...visiblePages].sort((a, b) => a - b)) {
+                if (previousPage && pageIndex - previousPage > 1) pages.push('<span class="pagination-ellipsis" aria-hidden="true">…</span>');
+                pages.push(`<button type="button" class="page-btn ${pageIndex === currentPageNum ? 'active' : ''}" data-page="${pageIndex}" ${pageIndex === currentPageNum ? 'aria-current="page"' : ''}>${pageIndex}</button>`);
+                previousPage = pageIndex;
             }
 
             paginationContainer.innerHTML = `
@@ -731,7 +771,7 @@ export async function editNote(id) {
                                 <button type="button" class="color-swatch" data-highlight-color="#86efac" title="Green" style="background:#86efac"></button>
                                 <button type="button" class="color-swatch" data-highlight-color="#93c5fd" title="Blue" style="background:#93c5fd"></button>
                             </div>
-                            <div class="description-editor" data-role="description-editor" contenteditable="true">${String(note.description ?? '').replace(/\n/g, '<br>')}</div>
+                            <div class="description-editor" data-role="description-editor" contenteditable="true">${normalizeHighlightMarkup(note.description ?? '')}</div>
                         </div>
                     </div>
                     <button type="submit" class="btn btn-primary">Save note</button>
@@ -897,6 +937,18 @@ export async function deleteNote(id) {
 export async function togglePin(id) {
     const button = document.querySelector(`button[data-action="toggle-pin"][data-id="${id}"]`);
     const currentPinned = button ? button.dataset.pinned === '1' : false;
+    const card = button?.closest('.note-card');
+    const header = card?.querySelector('.note-header');
+    const previousBadge = header?.querySelector('.pin-badge');
+    const nextPinned = !currentPinned;
+    if (button) {
+        button.dataset.pinned = nextPinned ? '1' : '0';
+        button.title = `${nextPinned ? 'Unpin' : 'Pin'} note`;
+        button.setAttribute('aria-label', `${nextPinned ? 'Unpin' : 'Pin'} note`);
+        button.disabled = true;
+    }
+    if (header && nextPinned && !previousBadge) header.insertAdjacentHTML('beforeend', '<span class="pin-badge">Pinned</span>');
+    if (header && !nextPinned) previousBadge?.remove();
 
     try {
         const response = await fetch(`${API_URL}?id=${id}`, {
@@ -904,7 +956,7 @@ export async function togglePin(id) {
             headers: {
                 'Content-Type': 'application/json'
             },
-            body: JSON.stringify({ pinned: !currentPinned })
+            body: JSON.stringify({ pinned: nextPinned })
         });
 
         const result = normalizeResult(await readJsonResponse(response, 'Failed to update pinned note.'));
@@ -912,10 +964,17 @@ export async function togglePin(id) {
             throw new Error(result.message || 'Failed to update pin status.');
         }
 
-        showAlert('Note pin updated.', 'success');
-        await index();
+        if (button) button.disabled = false;
         return true;
     } catch (error) {
+        if (button) {
+            button.dataset.pinned = currentPinned ? '1' : '0';
+            button.title = `${currentPinned ? 'Unpin' : 'Pin'} note`;
+            button.setAttribute('aria-label', `${currentPinned ? 'Unpin' : 'Pin'} note`);
+            button.disabled = false;
+        }
+        if (header && currentPinned && !header.querySelector('.pin-badge')) header.insertAdjacentHTML('beforeend', '<span class="pin-badge">Pinned</span>');
+        if (header && !currentPinned) header.querySelector('.pin-badge')?.remove();
         console.error(error);
         showAlert(error.message, 'error');
         return false;

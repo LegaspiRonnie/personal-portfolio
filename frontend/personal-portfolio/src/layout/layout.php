@@ -118,6 +118,76 @@ Dotenv\Dotenv::createImmutable(dirname(__DIR__, 3))->safeLoad();
     </script>
     <script>
         (function () {
+            const pageKey = window.location.pathname + window.location.search + window.location.hash;
+            const viewKey = `portfolio:view:${pageKey}`;
+            const draftKey = (form) => `portfolio:draft:${pageKey}:${form.id || 'form'}`;
+
+            function getFields(form) {
+                return [...form.querySelectorAll('input, textarea, select')].filter((field) => {
+                    const type = (field.type || '').toLowerCase();
+                    return !field.disabled && !['password', 'file', 'hidden', 'submit', 'button', 'reset'].includes(type);
+                });
+            }
+
+            function saveDraft(form) {
+                try {
+                    const draft = getFields(form).map((field) => ({
+                        name: field.name,
+                        id: field.id,
+                        value: field.type === 'checkbox' || field.type === 'radio' ? field.checked : field.value,
+                    }));
+                    localStorage.setItem(draftKey(form), JSON.stringify(draft));
+                } catch (error) {
+                    console.warn('Could not save this form draft.', error);
+                }
+            }
+
+            function restoreDraft(form) {
+                try {
+                    const saved = JSON.parse(localStorage.getItem(draftKey(form)) || 'null');
+                    if (!Array.isArray(saved)) return;
+                    getFields(form).forEach((field, index) => {
+                        const item = saved[index];
+                        if (!item || item.name !== field.name || item.id !== field.id) return;
+                        if (field.type === 'checkbox' || field.type === 'radio') field.checked = Boolean(item.value);
+                        else field.value = item.value ?? '';
+                    });
+                } catch (error) {
+                    console.warn('Could not restore this form draft.', error);
+                }
+            }
+
+            document.querySelectorAll('form[data-persist-draft]').forEach((form) => {
+                restoreDraft(form);
+                form.addEventListener('input', () => saveDraft(form));
+                form.addEventListener('change', () => saveDraft(form));
+                form.addEventListener('reset', () => {
+                    window.setTimeout(() => {
+                        try { localStorage.removeItem(draftKey(form)); } catch (error) { /* storage may be unavailable */ }
+                    }, 0);
+                });
+            });
+
+            try {
+                const previousView = JSON.parse(sessionStorage.getItem(viewKey) || 'null');
+                if (!window.location.hash && previousView && previousView.url === pageKey) {
+                    history.scrollRestoration = 'manual';
+                    requestAnimationFrame(() => window.scrollTo(previousView.x || 0, previousView.y || 0));
+                }
+                const saveView = () => sessionStorage.setItem(viewKey, JSON.stringify({
+                    url: pageKey,
+                    x: window.scrollX,
+                    y: window.scrollY,
+                }));
+                window.addEventListener('scroll', saveView, { passive: true });
+                window.addEventListener('pagehide', saveView);
+            } catch (error) {
+                // Storage may be disabled by browser privacy settings.
+            }
+        }());
+    </script>
+    <script>
+        (function () {
             const mapElement = document.getElementById('footer-map');
 
             if (!mapElement || typeof L === 'undefined') return;

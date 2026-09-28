@@ -15,7 +15,7 @@ ob_start();
     </section>
 
     <div class="contact-layout">
-        <form class="contact-form" id="contactForm">
+        <form class="contact-form" id="contactForm" data-persist-draft>
             <div class="contact-form__field-grid">
                 <label>
                     Name

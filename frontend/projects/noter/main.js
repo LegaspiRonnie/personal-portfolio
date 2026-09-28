@@ -1,4 +1,4 @@
-import { bindActions, index } from './api.js?v=4';
+import { bindActions, index } from './api.js?v=8';
 
 bindActions();
 

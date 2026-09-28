@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add Item</title>
+</head>
+
+<body>
+    <form id="itemForm">
+        <div>
+            <label for="name">Name</label>
+            <input type="text" id="name" name="name" maxlength="255" placeholder="Enter item name" required>
+        </div>
+
+        <div>
+            <label for="category">Category</label>
+            <select id="category" name="category" required>
+                <option value="">Select category</option>
+                <option value="weapon">Weapon</option>
+                <option value="armor">Armor</option>
+                <option value="consumable">Consumable</option>
+                <option value="accessory">Accessory</option>
+            </select>
+        </div>
+
+        <div>
+            <label for="rarity">Rarity</label>
+            <select id="rarity" name="rarity" required>
+                <option value="">Select rarity</option>
+                <option value="common">Common</option>
+                <option value="uncommon">Uncommon</option>
+                <option value="rare">Rare</option>
+                <option value="epic">Epic</option>
+                <option value="legendary">Legendary</option>
+            </select>
+        </div>
+
+        <div>
+            <label for="price">Price</label>
+            <input type="number" id="price" name="price" min="0" step="0.01" placeholder="0.00" required>
+        </div>
+
+        <button type="submit" id="submitButton">Add Item</button>
+        <p id="formMessage" role="status" aria-live="polite"></p>
+    </form>
+
+    <script>
+        const CREATE_ITEM_URL = "http://localhost/personal-portfolio/backend/projects/rest-crud/api/items/create.php";
+        const itemForm = document.querySelector("#itemForm");
+        const formMessage = document.querySelector("#formMessage");
+        const submitButton = document.querySelector("#submitButton");
+
+        itemForm.addEventListener("submit", async (event) => {
+            // Stop the browser from navigating away; we'll send the form with fetch instead.
+            event.preventDefault();
+            formMessage.textContent = "Saving item...";
+            submitButton.disabled = true;
+
+            // FormData reads the named fields; convert price from its input string to a number.
+            const formData = new FormData(itemForm);
+            const item = {
+                name: String(formData.get("name") || "").trim(),
+                category: formData.get("category"),
+                rarity: formData.get("rarity"),
+                price: Number(formData.get("price")),
+            };
+
+            try {
+                const response = await fetch(CREATE_ITEM_URL, {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json",
+                        Accept: "application/json",
+                    },
+                    // JSON.stringify creates the request body that create.php reads from php://input.
+                    body: JSON.stringify(item),
+                });
+
+                const result = await response.json();
+                if (!response.ok || result.status !== true) {
+                    throw new Error(result.message || `Request failed (HTTP ${response.status}).`);
+                }
+
+                formMessage.textContent = `${result.message} New item ID: ${result.data.id}.`;
+                itemForm.reset();
+            } catch (error) {
+                formMessage.textContent = error.message || "Could not save item. Please try again.";
+            } finally {
+                submitButton.disabled = false;
+            }
+        });
+    </script>
+</body>
+
+</html>

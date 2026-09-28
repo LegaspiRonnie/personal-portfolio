@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Items</title>
+</head>
+
+<body>
+    <table>
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>NAME</th>
+                <th>CATEGORY</th>
+                <th>RARITY</th>
+                <th>PRICE</th>
+                <th>ACTION</th>
+            </tr>
+        </thead>
+        <tbody id="itemsTableBody">
+            <tr><td colspan="6">Loading items...</td></tr>
+        </tbody>
+    </table>
+
+    <nav id="paginationControls" aria-label="Items pages">
+        <button id="previousPage" type="button" disabled>Previous</button>
+        <span id="pageStatus" aria-live="polite">Page 1</span>
+        <button id="nextPage" type="button" disabled>Next</button>
+    </nav>
+
+    <script src="js/index.js"></script>
+</body>
+
+</html>
