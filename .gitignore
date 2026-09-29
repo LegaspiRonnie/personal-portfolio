@@ -3,3 +3,29 @@
 # I-ignore ang laman ng cache pero panatilihin ang folder mismo gamit ang .gitkeep
 backend/cache/*
 !backend/cache/.gitkeep
+
+# Unity-generated files for the game API client
+/backend/projects/game-api/unity/rest-api/Library/
+/backend/projects/game-api/unity/rest-api/Temp/
+/backend/projects/game-api/unity/rest-api/Obj/
+/backend/projects/game-api/unity/rest-api/Build/
+/backend/projects/game-api/unity/rest-api/Builds/
+/backend/projects/game-api/unity/rest-api/Logs/
+/backend/projects/game-api/unity/rest-api/UserSettings/
+/backend/projects/game-api/unity/rest-api/MemoryCaptures/
+/backend/projects/game-api/unity/rest-api/Recordings/
+/backend/projects/game-api/unity/rest-api/.vs/
+/backend/projects/game-api/unity/rest-api/*.csproj
+/backend/projects/game-api/unity/rest-api/*.sln
+/backend/projects/game-api/unity/rest-api/*.slnx
+/backend/projects/game-api/unity/rest-api/*.user
+/backend/projects/game-api/unity/rest-api/*.suo
+/backend/projects/game-api/unity/rest-api/*.userprefs
+/backend/projects/game-api/unity/rest-api/*.pidb
+/backend/projects/game-api/unity/rest-api/*.booproj
+/backend/projects/game-api/unity/rest-api/*.svd
+/backend/projects/game-api/unity/rest-api/*.pdb
+/backend/projects/game-api/unity/rest-api/*.mdb
+/backend/projects/game-api/unity/rest-api/*.opendb
+/backend/projects/game-api/unity/rest-api/*.VC.db
+/backend/projects/game-api/unity/rest-api/*.VC.VC.opendb
