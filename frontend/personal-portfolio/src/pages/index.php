@@ -854,5 +854,5 @@ ob_start();
 
 <?php
 $content = ob_get_clean();
-include '../layout/layout.php';
+include __DIR__ . '/../layout/layout.php';
 ?>

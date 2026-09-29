@@ -44,7 +44,7 @@ $indexApi = [
 $siteMetadata = [
     'author' => 'Ronnie Hortizuela Legaspi',
     'site_name' => 'Ronnie Legaspi Portfolio',
-    'site_url' => 'https://ronnie-legaspi-portfolio.vercel.app',
+    'site_url' => 'https://ronnie-legaspi.vercel.app',
 ];
 
 // Site-wide Social Links

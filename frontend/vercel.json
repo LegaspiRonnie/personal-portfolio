@@ -1,0 +1,32 @@
+{
+  "functions": {
+    "personal-portfolio/src/pages/*.php": {
+      "runtime": "vercel-php@0.9.0"
+    }
+  },
+  "routes": [
+    {
+      "src": "^/$",
+      "dest": "/personal-portfolio/src/pages/index.php"
+    },
+    {
+      "src": "^/assets/(.*)$",
+      "dest": "/personal-portfolio/assets/$1"
+    },
+    {
+      "src": "^/(index|profile|projects|contact|book-schedule)\\.php$",
+      "dest": "/personal-portfolio/src/pages/$1.php"
+    },
+    {
+      "src": "^/robots\\.txt$",
+      "dest": "/personal-portfolio/robots.txt"
+    },
+    {
+      "src": "^/sitemap\\.xml$",
+      "dest": "/personal-portfolio/sitemap.xml"
+    },
+    {
+      "handle": "filesystem"
+    }
+  ]
+}

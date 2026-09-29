@@ -341,4 +341,4 @@ ob_start();
 $content = ob_get_clean();
 
 // 4. Load the master layout, which will now echo our $content
-include '../layout/layout.php';
+include __DIR__ . '/../layout/layout.php';
