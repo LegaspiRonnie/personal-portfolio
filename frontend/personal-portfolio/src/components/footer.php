@@ -38,6 +38,12 @@ $siteMetadata = $data['siteMetadata'];
                         <li><a href="<?php echo htmlspecialchars($footerLinks['instagram'], ENT_QUOTES, 'UTF-8'); ?>" target="_blank" rel="noreferrer">Instagram</a></li>
                         <li><a href="<?php echo htmlspecialchars($footerLinks['facebook'], ENT_QUOTES, 'UTF-8'); ?>" target="_blank" rel="noreferrer">Facebook</a></li>
                         <li><a href="<?php echo htmlspecialchars($footerLinks['youtube'], ENT_QUOTES, 'UTF-8'); ?>" target="_blank" rel="noreferrer">Youtube</a></li>
+                    </ul>
+                </div>
+
+                <div class="site-footer__group">
+                    <h3>Follow</h3>
+                    <ul>
                         <li><a href="<?php echo htmlspecialchars($footerLinks['tiktok'], ENT_QUOTES, 'UTF-8'); ?>" target="_blank" rel="noreferrer">TikTok</a></li>
                     </ul>
                 </div>
@@ -129,7 +135,7 @@ $siteMetadata = $data['siteMetadata'];
 
     .site-footer__links {
         display: grid;
-        grid-template-columns: repeat(2, minmax(140px, 1fr));
+        grid-template-columns: repeat(3, minmax(0, 1fr));
         gap: 2rem;
     }
 
