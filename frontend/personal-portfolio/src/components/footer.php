@@ -38,6 +38,7 @@ $siteMetadata = $data['siteMetadata'];
                         <li><a href="<?php echo htmlspecialchars($footerLinks['instagram'], ENT_QUOTES, 'UTF-8'); ?>" target="_blank" rel="noreferrer">Instagram</a></li>
                         <li><a href="<?php echo htmlspecialchars($footerLinks['facebook'], ENT_QUOTES, 'UTF-8'); ?>" target="_blank" rel="noreferrer">Facebook</a></li>
                         <li><a href="<?php echo htmlspecialchars($footerLinks['youtube'], ENT_QUOTES, 'UTF-8'); ?>" target="_blank" rel="noreferrer">Youtube</a></li>
+                        <li><a href="<?php echo htmlspecialchars($footerLinks['tiktok'], ENT_QUOTES, 'UTF-8'); ?>" target="_blank" rel="noreferrer">TikTok</a></li>
                     </ul>
                 </div>
             </div>

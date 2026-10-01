@@ -86,6 +86,7 @@ $footerLinks = [
     'instagram' => 'https://www.facebook.com/ronniehortizuela.legaspi',
     'facebook' => 'https://www.facebook.com/ron_aint_simp.23/',
     'youtube' => 'https://www.youtube.com/@ronnielegaspi4731',
+    'tiktok' => 'https://www.tiktok.com/@legaspi.ronnie.h?lang=en',
 ];
 
 $footerLocation = [
