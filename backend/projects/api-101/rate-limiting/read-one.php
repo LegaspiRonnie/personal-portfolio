@@ -86,13 +86,13 @@ try {
     $stmt->execute([
         $id
     ]);
-    $items = $stmt->fetchAll();
+    $item = $stmt->fetch();
 
-    if ($items === []) {
+    if ($item === []) {
         response(true, "Item not found", null, 200);
     }
 
-    response(true, null, $items, 200);
+    response(true, null, $item, 200);
 
 } catch(\Throwable $th) {
     response(false, $th->getMessage(), null, 500);
