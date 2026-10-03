@@ -11,9 +11,11 @@ class ComposerStaticInite875ae8441d070d7dda5f4b47a2117aa
         'ad155f8f1cf0d418fe49e248db8c661b' => __DIR__ . '/..' . '/react/promise/src/functions_include.php',
         '0e6d7bf4a5811bfa5cf40c5ccd6fae6a' => __DIR__ . '/..' . '/symfony/polyfill-mbstring/bootstrap.php',
         '320cde22f66dd4f5d3fd621d3e88b98f' => __DIR__ . '/..' . '/symfony/polyfill-ctype/bootstrap.php',
+        'a4a119a56e50fbb293281d9a48007e0e' => __DIR__ . '/..' . '/symfony/polyfill-php80/bootstrap.php',
+        '7b11c4dc42b3b3023073cb14e519683c' => __DIR__ . '/..' . '/ralouphie/getallheaders/src/getallheaders.php',
         '8825ede83f2f289127722d4e842cf7e8' => __DIR__ . '/..' . '/symfony/polyfill-intl-grapheme/bootstrap.php',
         'e69f7f6ee287b969198c3c9d6777bd38' => __DIR__ . '/..' . '/symfony/polyfill-intl-normalizer/bootstrap.php',
-        'a4a119a56e50fbb293281d9a48007e0e' => __DIR__ . '/..' . '/symfony/polyfill-php80/bootstrap.php',
+        '662a729f963d39afe703c9d9b7ab4a8c' => __DIR__ . '/..' . '/symfony/polyfill-php83/bootstrap.php',
         '606a39d89246991a373564698c2d8383' => __DIR__ . '/..' . '/symfony/polyfill-php85/bootstrap.php',
         'b6b991a57620e2fb6b2f66f03fe9ddc2' => __DIR__ . '/..' . '/symfony/string/Resources/functions.php',
         '23c18046f52bef3eea034657bafda50f' => __DIR__ . '/..' . '/symfony/polyfill-php81/bootstrap.php',
@@ -26,6 +28,7 @@ class ComposerStaticInite875ae8441d070d7dda5f4b47a2117aa
         array (
             'Symfony\\Polyfill\\Php85\\' => 23,
             'Symfony\\Polyfill\\Php84\\' => 23,
+            'Symfony\\Polyfill\\Php83\\' => 23,
             'Symfony\\Polyfill\\Php81\\' => 23,
             'Symfony\\Polyfill\\Php80\\' => 23,
             'Symfony\\Polyfill\\Mbstring\\' => 26,
@@ -36,8 +39,10 @@ class ComposerStaticInite875ae8441d070d7dda5f4b47a2117aa
             'Symfony\\Contracts\\EventDispatcher\\' => 34,
             'Symfony\\Component\\String\\' => 25,
             'Symfony\\Component\\Stopwatch\\' => 28,
+            'Symfony\\Component\\Routing\\' => 26,
             'Symfony\\Component\\Process\\' => 26,
             'Symfony\\Component\\OptionsResolver\\' => 34,
+            'Symfony\\Component\\HttpFoundation\\' => 33,
             'Symfony\\Component\\Finder\\' => 25,
             'Symfony\\Component\\Filesystem\\' => 29,
             'Symfony\\Component\\EventDispatcher\\' => 34,
@@ -52,10 +57,13 @@ class ComposerStaticInite875ae8441d070d7dda5f4b47a2117aa
             'React\\Dns\\' => 10,
             'React\\ChildProcess\\' => 19,
             'React\\Cache\\' => 12,
+            'Ratchet\\RFC6455\\' => 16,
+            'Ratchet\\' => 8,
         ),
         'P' =>
         array (
             'Psr\\Log\\' => 8,
+            'Psr\\Http\\Message\\' => 17,
             'Psr\\EventDispatcher\\' => 20,
             'Psr\\Container\\' => 14,
             'PhpOption\\' => 10,
@@ -63,6 +71,7 @@ class ComposerStaticInite875ae8441d070d7dda5f4b47a2117aa
         ),
         'G' =>
         array (
+            'GuzzleHttp\\Psr7\\' => 16,
             'GrahamCampbell\\ResultType\\' => 26,
         ),
         'F' =>
@@ -95,6 +104,10 @@ class ComposerStaticInite875ae8441d070d7dda5f4b47a2117aa
         'Symfony\\Polyfill\\Php84\\' =>
         array (
             0 => __DIR__ . '/..' . '/symfony/polyfill-php84',
+        ),
+        'Symfony\\Polyfill\\Php83\\' =>
+        array (
+            0 => __DIR__ . '/..' . '/symfony/polyfill-php83',
         ),
         'Symfony\\Polyfill\\Php81\\' =>
         array (
@@ -136,6 +149,10 @@ class ComposerStaticInite875ae8441d070d7dda5f4b47a2117aa
         array (
             0 => __DIR__ . '/..' . '/symfony/stopwatch',
         ),
+        'Symfony\\Component\\Routing\\' =>
+        array (
+            0 => __DIR__ . '/..' . '/symfony/routing',
+        ),
         'Symfony\\Component\\Process\\' =>
         array (
             0 => __DIR__ . '/..' . '/symfony/process',
@@ -143,6 +160,10 @@ class ComposerStaticInite875ae8441d070d7dda5f4b47a2117aa
         'Symfony\\Component\\OptionsResolver\\' =>
         array (
             0 => __DIR__ . '/..' . '/symfony/options-resolver',
+        ),
+        'Symfony\\Component\\HttpFoundation\\' =>
+        array (
+            0 => __DIR__ . '/..' . '/symfony/http-foundation',
         ),
         'Symfony\\Component\\Finder\\' =>
         array (
@@ -188,9 +209,22 @@ class ComposerStaticInite875ae8441d070d7dda5f4b47a2117aa
         array (
             0 => __DIR__ . '/..' . '/react/cache/src',
         ),
+        'Ratchet\\RFC6455\\' =>
+        array (
+            0 => __DIR__ . '/..' . '/ratchet/rfc6455/src',
+        ),
+        'Ratchet\\' =>
+        array (
+            0 => __DIR__ . '/..' . '/cboden/ratchet/src/Ratchet',
+        ),
         'Psr\\Log\\' =>
         array (
             0 => __DIR__ . '/..' . '/psr/log/src',
+        ),
+        'Psr\\Http\\Message\\' =>
+        array (
+            0 => __DIR__ . '/..' . '/psr/http-factory/src',
+            1 => __DIR__ . '/..' . '/psr/http-message/src',
         ),
         'Psr\\EventDispatcher\\' =>
         array (
@@ -207,6 +241,10 @@ class ComposerStaticInite875ae8441d070d7dda5f4b47a2117aa
         'PhpCsFixer\\' =>
         array (
             0 => __DIR__ . '/..' . '/friendsofphp/php-cs-fixer/src',
+        ),
+        'GuzzleHttp\\Psr7\\' =>
+        array (
+            0 => __DIR__ . '/..' . '/guzzlehttp/psr7/src',
         ),
         'GrahamCampbell\\ResultType\\' =>
         array (
@@ -250,12 +288,22 @@ class ComposerStaticInite875ae8441d070d7dda5f4b47a2117aa
         'Attribute' => __DIR__ . '/..' . '/symfony/polyfill-php80/Resources/stubs/Attribute.php',
         'CURLStringFile' => __DIR__ . '/..' . '/symfony/polyfill-php81/Resources/stubs/CURLStringFile.php',
         'Composer\\InstalledVersions' => __DIR__ . '/..' . '/composer/InstalledVersions.php',
+        'DateError' => __DIR__ . '/..' . '/symfony/polyfill-php83/Resources/stubs/DateError.php',
+        'DateException' => __DIR__ . '/..' . '/symfony/polyfill-php83/Resources/stubs/DateException.php',
+        'DateInvalidOperationException' => __DIR__ . '/..' . '/symfony/polyfill-php83/Resources/stubs/DateInvalidOperationException.php',
+        'DateInvalidTimeZoneException' => __DIR__ . '/..' . '/symfony/polyfill-php83/Resources/stubs/DateInvalidTimeZoneException.php',
+        'DateMalformedIntervalStringException' => __DIR__ . '/..' . '/symfony/polyfill-php83/Resources/stubs/DateMalformedIntervalStringException.php',
+        'DateMalformedPeriodStringException' => __DIR__ . '/..' . '/symfony/polyfill-php83/Resources/stubs/DateMalformedPeriodStringException.php',
+        'DateMalformedStringException' => __DIR__ . '/..' . '/symfony/polyfill-php83/Resources/stubs/DateMalformedStringException.php',
+        'DateObjectError' => __DIR__ . '/..' . '/symfony/polyfill-php83/Resources/stubs/DateObjectError.php',
+        'DateRangeError' => __DIR__ . '/..' . '/symfony/polyfill-php83/Resources/stubs/DateRangeError.php',
         'DelayedTargetValidation' => __DIR__ . '/..' . '/symfony/polyfill-php85/Resources/stubs/DelayedTargetValidation.php',
         'Deprecated' => __DIR__ . '/..' . '/symfony/polyfill-php84/Resources/stubs/Deprecated.php',
         'Filter\\FilterException' => __DIR__ . '/..' . '/symfony/polyfill-php85/Resources/stubs/Filter/FilterException.php',
         'Filter\\FilterFailedException' => __DIR__ . '/..' . '/symfony/polyfill-php85/Resources/stubs/Filter/FilterFailedException.php',
         'NoDiscard' => __DIR__ . '/..' . '/symfony/polyfill-php85/Resources/stubs/NoDiscard.php',
         'Normalizer' => __DIR__ . '/..' . '/symfony/polyfill-intl-normalizer/Resources/stubs/Normalizer.php',
+        'Override' => __DIR__ . '/..' . '/symfony/polyfill-php83/Resources/stubs/Override.php',
         'Pdo\\Dblib' => __DIR__ . '/..' . '/symfony/polyfill-php84/Resources/stubs/Pdo/Dblib.php',
         'Pdo\\Firebird' => __DIR__ . '/..' . '/symfony/polyfill-php84/Resources/stubs/Pdo/Firebird.php',
         'Pdo\\Mysql' => __DIR__ . '/..' . '/symfony/polyfill-php84/Resources/stubs/Pdo/Mysql.php',
@@ -266,6 +314,7 @@ class ComposerStaticInite875ae8441d070d7dda5f4b47a2117aa
         'ReflectionConstant' => __DIR__ . '/..' . '/symfony/polyfill-php84/Resources/stubs/ReflectionConstant.php',
         'ReturnTypeWillChange' => __DIR__ . '/..' . '/symfony/polyfill-php81/Resources/stubs/ReturnTypeWillChange.php',
         'RoundingMode' => __DIR__ . '/..' . '/symfony/polyfill-php84/Resources/stubs/RoundingMode.php',
+        'SQLite3Exception' => __DIR__ . '/..' . '/symfony/polyfill-php83/Resources/stubs/SQLite3Exception.php',
         'SebastianBergmann\\Diff\\Chunk' => __DIR__ . '/..' . '/sebastian/diff/src/Chunk.php',
         'SebastianBergmann\\Diff\\ConfigurationException' => __DIR__ . '/..' . '/sebastian/diff/src/Exception/ConfigurationException.php',
         'SebastianBergmann\\Diff\\Diff' => __DIR__ . '/..' . '/sebastian/diff/src/Diff.php',
