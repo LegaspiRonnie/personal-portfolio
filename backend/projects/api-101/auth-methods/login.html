@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+</head>
+<body>
+    <form id="loginForm">
+        <div>
+            <label for="username">Username:</label>
+            <input type="text" id="username" name="username" >
+        </div>
+
+        <div>
+            <label for="password">Password:</label>
+            <input type="password" id="password" name="password" >
+        </div>
+
+        <button type="submit">Login</button>
+        <p id="message" role="alert"></p>
+    </form>
+
+    <script>
+        const API_URL = 'http://localhost:4000/basic-auth.php'; // Replace with your actual API endpoint
+
+        const loginForm = document.getElementById('loginForm');
+        const username = document.getElementById('username');
+        const password = document.getElementById('password');
+        const message = document.getElementById('message');
+        const submitButton = loginForm?.querySelector('button[type="submit"]');
+
+        // Check elements BEFORE using them
+        if (!loginForm || !username || !password || !submitButton || !message) {
+            throw new Error('One or more required elements not found in the DOM.');
+        }
+
+        async function loginUser(usernameValue, passwordValue) {
+            const credentials = new TextEncoder().encode(`${usernameValue}:${passwordValue}`);
+            let binaryCredentials = '';
+            credentials.forEach((byte) => {
+                binaryCredentials += String.fromCharCode(byte);
+            });
+
+            const response = await fetch(API_URL, {
+                method: 'POST',
+                headers: {
+                    'Authorization': `Basic ${btoa(binaryCredentials)}`
+                }
+            });
+
+            if (!response.ok) {
+                throw new Error(`HTTP Error! status: ${response.status}`);
+            }
+
+            return await response.json();
+        }
+
+        loginForm.addEventListener('submit', async (event) => {
+            event.preventDefault(); // stop page reload
+
+            // Read values at submit time, not at page load
+            const usernameValue = username.value.trim();
+            const passwordValue = password.value;
+
+            if (usernameValue === '' || passwordValue === '') {
+                message.textContent = 'Username or password is empty.';
+                return;
+            }
+
+            submitButton.disabled = true;
+            message.textContent = 'Logging in...';
+
+            try {
+                const data = await loginUser(usernameValue, passwordValue);
+                console.log('Login successful!', data);
+                message.textContent = 'Login successful!';
+            } catch (error) {
+                console.error('Error during login:', error);
+                message.textContent = 'Login failed. Please check your credentials.';
+            } finally {
+                submitButton.disabled = false;
+            }
+        });
+    </script>
+</body>
+</html>
