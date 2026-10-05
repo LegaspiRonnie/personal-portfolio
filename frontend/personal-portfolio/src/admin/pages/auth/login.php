@@ -1,7 +1,15 @@
 <?php
 
-$pageTitle = 'Admin Login';
+session_start();
+
 $scriptPath = $_SERVER['SCRIPT_NAME'] ?? '/';
+
+if (!empty($_SESSION['log_in'])) {
+    header('Location: ' . rtrim(dirname($scriptPath, 3), '/') . '/index.php');
+    exit;
+}
+
+$pageTitle = 'Admin Login';
 $apiUrl = rtrim(dirname($scriptPath, 7), '/') . '/backend/personal-portfolio/api/v1/login.php';
 $loginScriptUrl = rtrim(dirname($scriptPath, 4), '/') . '/admin/js/login.js';
 
