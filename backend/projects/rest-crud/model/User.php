@@ -61,6 +61,7 @@ class User
     // create user
     public function create(string $username, string $email, string $password): bool
     {
+        $password = password_hash($password, PASSWORD_DEFAULT);
 
         $query = "INSERT INTO {$this->table} (username, email, password)
                   VALUES (:username, :email, :password)";

@@ -1,7 +1,9 @@
 <?php
 
 $pageTitle = 'Admin Login';
-$initialize = require dirname(__DIR__, 2) . '/config/initialize.php';
+$scriptPath = $_SERVER['SCRIPT_NAME'] ?? '/';
+$apiUrl = rtrim(dirname($scriptPath, 7), '/') . '/backend/personal-portfolio/api/v1/login.php';
+$loginScriptUrl = rtrim(dirname($scriptPath, 4), '/') . '/admin/js/login.js';
 
 ?>
 <!DOCTYPE html>
@@ -91,7 +93,12 @@ $initialize = require dirname(__DIR__, 2) . '/config/initialize.php';
         <h1>Admin Login</h1>
         <p class="login-card__description">Sign in to manage your portfolio.</p>
 
-        <form class="login-form" id="loginForm">
+        <form
+            class="login-form"
+            id="loginForm"
+            data-api-url="<?php echo htmlspecialchars($apiUrl, ENT_QUOTES, 'UTF-8'); ?>"
+        >
+            <p id="loginMessage" role="status" aria-live="polite" hidden></p>
 
             <label for="email">
                 Email
@@ -119,13 +126,6 @@ $initialize = require dirname(__DIR__, 2) . '/config/initialize.php';
         </form>
     </main>
 
-    <script 
-        src="<?php echo htmlspecialchars($initialize['js']) . '/login.js' ?> ">
-
-        const API_URL = ""
-        const loginForm = document.getElementsById("loginForm");
-        const email = document.getElementById("email");
-        const password = document.getElementById("password");
-    </script>
+    <script src="<?php echo htmlspecialchars($loginScriptUrl, ENT_QUOTES, 'UTF-8'); ?>" defer></script>
 </body>
 </html>

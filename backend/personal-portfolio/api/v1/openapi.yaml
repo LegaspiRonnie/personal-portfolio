@@ -1,0 +1,86 @@
+openapi: 3.1.0
+info:
+  title: Personal Portfolio Login API
+  version: 1.0.0
+  description: Authenticates an existing portfolio administrator and starts a session.
+servers:
+  - url: /personal-portfolio/backend/personal-portfolio/api/v1
+paths:
+  /login.php:
+    post:
+      operationId: login
+      summary: Sign in to the admin area
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - email
+                - password
+              properties:
+                email:
+                  type: string
+                  format: email
+                password:
+                  type: string
+                  minLength: 1
+            example:
+              email: admin@example.com
+              password: your-password
+      responses:
+        '200':
+          description: Credentials accepted; a session cookie is set.
+          headers:
+            Set-Cookie:
+              schema:
+                type: string
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                  - status
+                  - message
+                  - user
+                properties:
+                  status:
+                    type: boolean
+                    const: true
+                  message:
+                    type: string
+                  user:
+                    type: object
+                    properties:
+                      id:
+                        type: integer
+                      username:
+                        type: string
+                      email:
+                        type: string
+                        format: email
+              example:
+                status: true
+                message: Login successful.
+                user:
+                  id: 1
+                  username: admin
+                  email: admin@example.com
+        '400':
+          description: Malformed JSON or invalid/missing credentials in the request body.
+        '401':
+          description: Email or password is incorrect.
+        '405':
+          description: Only POST is allowed.
+        '415':
+          description: The request Content-Type must be application/json.
+        '500':
+          description: Unexpected server error.
+      security: []
+components:
+  securitySchemes:
+    sessionCookie:
+      type: apiKey
+      in: cookie
+      name: PHPSESSID
