@@ -34,7 +34,7 @@ function response(
     string $status,
     mixed $data = null,
     ?string $message = null,
-    int $code = 200
+    int $code = 200,
 ): never {
     $payload = ['status' => $status];
 

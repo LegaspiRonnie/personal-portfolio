@@ -1,12 +1,12 @@
 <?php
- 
+
 declare(strict_types=1);
 
 session_start([
     'cookie_lifetime' => 604800, // 1 linggo sa segundo
     'cookie_secure'   => false,   // I-set sa true kung naka-HTTPS
     'cookie_httponly' => true,   // Proteksyon laban sa XSS
-    'cookie_samesite' => 'Lax'   // Proteksyon laban sa CSRF
+    'cookie_samesite' => 'Lax',   // Proteksyon laban sa CSRF
 ]);
 
 header("Content-Type: application/json; charset=utf-8");
@@ -42,8 +42,8 @@ if (!$initialize) {
     exit;
 }
 
-require_once $initialize['helper']   . '/helper.php';
-require_once $initialize['model']    . '/User.php';
+require_once $initialize['helper'] . '/helper.php';
+require_once $initialize['model'] . '/User.php';
 require_once $initialize['database'] . '/Database.php';
 
 try {
@@ -122,4 +122,3 @@ try {
         'data'    => $th->getMessage(),
     ]);
 }
-

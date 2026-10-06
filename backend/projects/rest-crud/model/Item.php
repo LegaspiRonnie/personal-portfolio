@@ -88,10 +88,10 @@ class Item
         // Keep model validation here too, so direct callers cannot bypass it.
         $data = self::validateCreateData($data);
 
-        $query = "INSERT INTO " . self::TABLE .
-                 " (name, category, rarity, price) " .
-                 "VALUES (:name, :category, :rarity, :price)";
-        
+        $query = "INSERT INTO " . self::TABLE
+                 . " (name, category, rarity, price) "
+                 . "VALUES (:name, :category, :rarity, :price)";
+
         $stmt = $this->conn->prepare($query);
 
         $stmt->execute([

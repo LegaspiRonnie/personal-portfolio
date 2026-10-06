@@ -1,4 +1,5 @@
-<?php 
+<?php
+
 
 function response(
     bool $status,
@@ -10,15 +11,15 @@ function response(
 
     $payload = ['status' => $status];
 
-    if ($message !== null ) {
+    if ($message !== null) {
         $payload['message'] = $message;
     }
 
-    if ($data !== null ) {
+    if ($data !== null) {
         $payload['data'] = $data;
     }
 
-    echo json_encode($payload, JSON_INVALID_UTF8_SUBSTITUTE); 
+    echo json_encode($payload, JSON_INVALID_UTF8_SUBSTITUTE);
 
     exit;
 }

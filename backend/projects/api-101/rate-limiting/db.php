@@ -13,7 +13,7 @@ try {
     // Keep credentials and network details in the server log, not in the API response.
     error_log('Game API database connection failed: ' . $exception->getMessage());
     http_response_code(500);
-    
+
     echo json_encode([
         'status' => 'error',
         'message' => 'Database connection failed.',

@@ -8,7 +8,7 @@ header('Content-Type: application/json; charset=utf-8');
 // method allowed POST
 header('Access-Control-Allow-Methods: POST');
 
-// initilize paths 
+// initilize paths
 $path = require_once '../../config/initialize.php';
 
 require_once $path['db'] . '/Database.php';

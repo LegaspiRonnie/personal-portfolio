@@ -17,7 +17,7 @@ if (isRateLimited($_SERVER['REMOTE_ADDR'] ?? 'unknown', 60, 60)) {
     response(false, 'Too many requests. Please try again later.', null, 429);
 }
 
-$rawId = $_GET['id'] ?? null; 
+$rawId = $_GET['id'] ?? null;
 
 if ($rawId !== null) {
     header('Location: read-one.php');
@@ -39,6 +39,6 @@ try {
 
     response(true, null, $items, 200);
 
-} catch(\Throwable $th) {
+} catch (\Throwable $th) {
     response(false, $th->getMessage(), null, 500);
 }

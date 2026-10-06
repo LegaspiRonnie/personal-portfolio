@@ -84,7 +84,7 @@ try {
     $sql = "SELECT * FROM " . TABLE . " WHERE id = ?";
     $stmt = $pdo->prepare($sql);
     $stmt->execute([
-        $id
+        $id,
     ]);
     $item = $stmt->fetch();
 
@@ -94,6 +94,6 @@ try {
 
     response(true, null, $item, 200);
 
-} catch(\Throwable $th) {
+} catch (\Throwable $th) {
     response(false, $th->getMessage(), null, 500);
 }

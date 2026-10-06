@@ -2,7 +2,8 @@
 
 declare(strict_types=1);
 
-class User {
+class User
+{
     private PDO $db;
     private const TABLE = '_users';
 
@@ -29,17 +30,17 @@ class User {
         return false;
     }
 
-    // log user in 
+    // log user in
     public function login(string $email, string $password): array
-    {   
-        $query = "SELECT id, username, email, password " . 
-                " FROM " . self::TABLE . 
-                " WHERE email = ?" .
-                " LIMIT 1";
+    {
+        $query = "SELECT id, username, email, password "
+                . " FROM " . self::TABLE
+                . " WHERE email = ?"
+                . " LIMIT 1";
         $stmt = $this->db->prepare($query);
 
         $stmt->execute([
-            $email
+            $email,
         ]);
 
         $user = $stmt->fetch(PDO::FETCH_ASSOC);
