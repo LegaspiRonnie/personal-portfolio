@@ -1,7 +1,7 @@
 <?php
 
 
-function response(
+function rateLimitResponse(
     bool $status,
     ?string $message = null,
     mixed $data = null,

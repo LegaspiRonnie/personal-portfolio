@@ -47,6 +47,7 @@ try {
             'status' => false,
             'message' => 'Request body must contain valid JSON.',
         ]);
+        exit;
     }
 
     if (!$decoded instanceof stdClass) {

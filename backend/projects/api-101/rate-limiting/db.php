@@ -7,7 +7,7 @@ require_once dirname(__DIR__, 3) . '/config/Database.php';
 
 try {
     // Reuse the shared connection so this API uses DB_HOST and DB_PORT from backend/.env.
-    $pdo = (new Database())->connect();
+    return (new Database())->connect();
     // echo "connected";
 } catch (Throwable $exception) {
     // Keep credentials and network details in the server log, not in the API response.

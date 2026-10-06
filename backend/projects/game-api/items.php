@@ -12,7 +12,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
     exit;
 }
 
-require_once __DIR__ . '/config.php';
+$pdo = require __DIR__ . '/config.php';
 
 const ITEM_TABLE = 'rest_items';
 
@@ -24,13 +24,13 @@ if ($rawId !== null) {
     $validatedId = filter_var($rawId, FILTER_VALIDATE_INT);
 
     if ($validatedId === false || $validatedId <= 0) {
-        response('error', null, 'ID must be a positive integer.', 400);
+        gameApiResponse('error', null, 'ID must be a positive integer.', 400);
     }
 
     $id = $validatedId;
 }
 
-function response(
+function gameApiResponse(
     string $status,
     mixed $data = null,
     ?string $message = null,
@@ -54,7 +54,7 @@ function response(
 function requireId(?int $id): int
 {
     if ($id === null) {
-        response('error', null, 'ID is required.', 400);
+        gameApiResponse('error', null, 'ID is required.', 400);
     }
 
     return $id;
@@ -84,7 +84,7 @@ function readItemInput(): array
     $body = json_decode(file_get_contents('php://input'), true);
 
     if (!is_array($body)) {
-        response('error', null, 'Request body must be valid JSON.', 400);
+        gameApiResponse('error', null, 'Request body must be valid JSON.', 400);
     }
 
     $name = trim($body['name'] ?? '');
@@ -93,11 +93,11 @@ function readItemInput(): array
     $price = $body['price'] ?? null;
 
     if ($name === '' || $category === '' || $rarity === '') {
-        response('error', null, 'Name, category, and rarity are required.', 400);
+        gameApiResponse('error', null, 'Name, category, and rarity are required.', 400);
     }
 
     if (!is_numeric($price) || (float) $price < 0) {
-        response('error', null, 'Price must be a non-negative number.', 400);
+        gameApiResponse('error', null, 'Price must be a non-negative number.', 400);
     }
 
     return [
@@ -113,10 +113,10 @@ if ($method === 'GET') {
         $item = findItem($pdo, $id);
 
         if ($item === null) {
-            response('error', null, 'Item not found.', 404);
+            gameApiResponse('error', null, 'Item not found.', 404);
         }
 
-        response('success', $item);
+        gameApiResponse('success', $item);
     }
 
     $query = 'SELECT id, name, category, rarity, price FROM ' . ITEM_TABLE;
@@ -128,7 +128,7 @@ if ($method === 'GET') {
     }
     unset($item);
 
-    response('success', $items);
+    gameApiResponse('success', $items);
 }
 
 if ($method === 'POST') {
@@ -144,14 +144,14 @@ if ($method === 'POST') {
     ]);
 
     $createdItem = findItem($pdo, (int) $pdo->lastInsertId());
-    response('success', $createdItem, 'Item created successfully.', 201);
+    gameApiResponse('success', $createdItem, 'Item created successfully.', 201);
 }
 
 if ($method === 'PUT') {
     $id = requireId($id);
 
     if (findItem($pdo, $id) === null) {
-        response('error', null, 'Item not found.', 404);
+        gameApiResponse('error', null, 'Item not found.', 404);
     }
 
     $item = readItemInput();
@@ -167,22 +167,22 @@ if ($method === 'PUT') {
         $id,
     ]);
 
-    response('success', findItem($pdo, $id), 'Item updated successfully.');
+    gameApiResponse('success', findItem($pdo, $id), 'Item updated successfully.');
 }
 
 if ($method === 'DELETE') {
     $id = requireId($id);
 
     if (findItem($pdo, $id) === null) {
-        response('error', null, 'Item not found.', 404);
+        gameApiResponse('error', null, 'Item not found.', 404);
     }
 
     $query = 'DELETE FROM ' . ITEM_TABLE . ' WHERE id = ?';
     $statement = $pdo->prepare($query);
     $statement->execute([$id]);
 
-    response('success', null, 'Item deleted successfully.');
+    gameApiResponse('success', null, 'Item deleted successfully.');
 }
 
 header('Allow: GET, POST, PUT, DELETE, OPTIONS');
-response('error', null, 'Method not allowed.', 405);
+gameApiResponse('error', null, 'Method not allowed.', 405);

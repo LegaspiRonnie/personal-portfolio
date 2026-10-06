@@ -22,7 +22,7 @@ class EchoServer implements MessageComponentInterface
     public function onOpen(ConnectionInterface $connection): void
     {
         $this->clients->attach($connection);
-        echo "Client connected: {$connection->resourceId}\n";
+        echo 'Client connected: ' . spl_object_id($connection) . "\n";
     }
 
     // Send each message to every connected client.
@@ -37,7 +37,7 @@ class EchoServer implements MessageComponentInterface
     public function onClose(ConnectionInterface $connection): void
     {
         $this->clients->detach($connection);
-        echo "Client disconnected: {$connection->resourceId}\n";
+        echo 'Client disconnected: ' . spl_object_id($connection) . "\n";
     }
 
     // Log errors and close the affected connection.

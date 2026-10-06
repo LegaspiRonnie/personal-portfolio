@@ -33,7 +33,7 @@ function enforceRateLimit(int $maxRequests = 10, int $windowSeconds = 60): void
     rewind($file);
     $storedState = trim((string) stream_get_contents($file));
     $parts = explode(':', $storedState, 2);
-    $windowStartedAt = isset($parts[0]) ? (int) $parts[0] : 0;
+    $windowStartedAt = (int) $parts[0];
     $requestCount = isset($parts[1]) ? (int) $parts[1] : 0;
 
     // Start a fresh window when no valid window exists or the previous one expired.
@@ -53,13 +53,13 @@ function enforceRateLimit(int $maxRequests = 10, int $windowSeconds = 60): void
     if ($requestCount > $maxRequests) {
         // Tell clients when the current request window will reset.
         header('Retry-After: ' . max(1, $windowSeconds - ($now - $windowStartedAt)));
-        response(false, 'Too many requests. Please try again later.', null, 429);
+        rateLimitResponse(false, 'Too many requests. Please try again later.', null, 429);
     }
 }
 
 if ($_SERVER['REQUEST_METHOD'] !== 'GET') {
     header('Allow: GET');
-    response(false, 'Method not allowed.', null, 405);
+    rateLimitResponse(false, 'Method not allowed.', null, 405);
 }
 
 enforceRateLimit();
@@ -67,16 +67,16 @@ enforceRateLimit();
 $rawId = $_GET['id'] ?? null;
 
 if (!is_string($rawId) || $rawId === '') {
-    response(false, 'ID is required and must be a single value.', null, 400);
+    rateLimitResponse(false, 'ID is required and must be a single value.', null, 400);
 }
 
 $id = filter_var($rawId, FILTER_VALIDATE_INT);
 
 if ($id === false || $id <= 0) {
-    response(false, 'ID must be a positive integer.', null, 400);
+    rateLimitResponse(false, 'ID must be a positive integer.', null, 400);
 }
 
-require_once __DIR__ . '/db.php';
+$pdo = require __DIR__ . '/db.php';
 
 const TABLE = "rest_items";
 
@@ -89,11 +89,11 @@ try {
     $item = $stmt->fetch();
 
     if ($item === []) {
-        response(true, "Item not found", null, 200);
+        rateLimitResponse(true, "Item not found", null, 200);
     }
 
-    response(true, null, $item, 200);
+    rateLimitResponse(true, null, $item, 200);
 
 } catch (\Throwable $th) {
-    response(false, $th->getMessage(), null, 500);
+    rateLimitResponse(false, $th->getMessage(), null, 500);
 }
